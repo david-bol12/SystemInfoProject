@@ -6,13 +6,13 @@
 
 public class Main
 {
+
+    // Create a new branch before editing any code in main
     public static void main(String[] args)
     {
         System.out.println("System Info Project");
-        System.loadLibrary("sysinfo");
-        cpuInfo cpu = new cpuInfo();
-        cpu.read(0);
-        System.out.println(cpu.coresPerSocket());
+        System.loadLibrary("sysinfo"); // Loads C++ Library
+
     }
 }
 
