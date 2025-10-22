@@ -12,7 +12,9 @@ public class Main
     {
         System.out.println("System Info Project");
         System.loadLibrary("sysinfo"); // Loads C++ Library
-
+        cpuInfo cpu = new cpuInfo();
+        cpu.read(0);
+        System.out.println(cpu.coresPerSocket());
     }
 }
 
