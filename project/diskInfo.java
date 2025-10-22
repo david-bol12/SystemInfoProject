@@ -13,5 +13,19 @@ public class diskInfo
     public native long getTotal (int disk);
     public native long getUsed (int disk);
     public native long getAvailable (int disk);
+
+    public static void showDisk()
+    {
+        diskInfo disk = new diskInfo();
+        disk.read();
+
+        // Iterate through all of the disks
+        for (int i = 0; i < disk.diskCount(); i++) {
+            System.out.println ("disk "+disk.getName(i)+" has "+
+                    disk.getTotal(i)+" blocks, of which "+
+                    disk.getUsed(i)+" are used");
+        }
+    }
+
 }
 
