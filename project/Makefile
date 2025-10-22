@@ -3,7 +3,7 @@
 MODULES=sysInfo cpuInfo pciInfo usbInfo diskInfo memInfo
 HEADERS=$(MODULES:=.h)
 
-MYPROJECT=template
+MYPROJECT=Main
 
 all: $(HEADERS) $(MYPROJECT).class libsysinfo/libsysinfo.so
 
