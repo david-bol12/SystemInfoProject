@@ -104,18 +104,18 @@ public class template
             mem.getUsed()+" is used");
     }
 
-    public static void main(String[] args)
-    {
-        System.loadLibrary("sysinfo");
-        sysInfo info = new sysInfo();
-        cpuInfo cpu = new cpuInfo();
-        cpu.read(0);
-
-        showCPU();
-        showPCI();
-        showUSB();
-        showDisk();
-        showMem();
-    }
+//    public static void main(String[] args)
+//    {
+//        System.loadLibrary("sysinfo");
+//        sysInfo info = new sysInfo();
+//        cpuInfo cpu = new cpuInfo();
+//        cpu.read(0);
+//
+//        showCPU();
+//        showPCI();
+//        showUSB();
+//        showDisk();
+//        showMem();
+//    }
 }
 
