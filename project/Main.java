@@ -13,17 +13,17 @@ public class Main
         System.out.println("System Info Project");
         System.loadLibrary("sysinfo"); // Loads C++ Library
         cpuInfo cpu = new cpuInfo();
-        cpu.read(0);
+        cpu.read(1);
         System.out.println(cpu.coresPerSocket());
         System.out.println(cpu.getUserTime(0));
         System.out.println(cpu.getIdleTime(0));
-        cpu.read();
+        cpu.read(1);
         System.out.println(cpu.getUserTime(0));
         System.out.println(cpu.getIdleTime(0));
-        cpu.read();
+        cpu.read(1);
         System.out.println(cpu.getUserTime(0));
         System.out.println(cpu.getIdleTime(0));
-        cpu.read();
+        cpu.read(1);
         System.out.println(cpu.getUserTime(0));
         System.out.println(cpu.getIdleTime(0));
     }
