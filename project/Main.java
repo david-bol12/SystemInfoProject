@@ -10,15 +10,9 @@ public class Main
     {
         System.out.println("System Info Project");
         System.loadLibrary("sysinfo");
-        sysInfo info = new sysInfo();
         cpuInfo cpu = new cpuInfo();
         cpu.read(0);
-
-        cpuInfo.showCPU();
-        pciInfo.showPCI();
-        usbInfo.showUSB();
-        diskInfo.showDisk();
-        memInfo.showMem();
+        System.out.println(cpu.coresPerSocket());
     }
 }
 
