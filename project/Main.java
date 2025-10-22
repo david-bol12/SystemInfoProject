@@ -15,17 +15,11 @@ public class Main
         cpuInfo cpu = new cpuInfo();
         cpu.read(1);
         System.out.println(cpu.coresPerSocket());
-        System.out.println(cpu.getUserTime(0));
-        System.out.println(cpu.getIdleTime(0));
+        System.out.println(cpu.getUserTime(1));
+        System.out.println(cpu.getIdleTime(1));
         cpu.read(1);
-        System.out.println(cpu.getUserTime(0));
-        System.out.println(cpu.getIdleTime(0));
-        cpu.read(1);
-        System.out.println(cpu.getUserTime(0));
-        System.out.println(cpu.getIdleTime(0));
-        cpu.read(1);
-        System.out.println(cpu.getUserTime(0));
-        System.out.println(cpu.getIdleTime(0));
+        System.out.println(cpu.getUserTime(1));
+        System.out.println(cpu.getIdleTime(1));
     }
 }
 
