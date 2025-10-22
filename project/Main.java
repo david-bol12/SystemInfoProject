@@ -20,6 +20,12 @@ public class Main
         cpu.read();
         System.out.println(cpu.getUserTime(0));
         System.out.println(cpu.getIdleTime(0));
+        cpu.read();
+        System.out.println(cpu.getUserTime(0));
+        System.out.println(cpu.getIdleTime(0));
+        cpu.read();
+        System.out.println(cpu.getUserTime(0));
+        System.out.println(cpu.getIdleTime(0));
     }
 }
 
