@@ -62,7 +62,7 @@ public class cpuInfo
         // Sleep for 1 second and display the idle time percentage for
         // core 1.  This assumes 10Hz so in one second we have 100
         int timer = 0;
-        while(timer < 10) {
+        while(timer < 20) {
             cpu.read(1);
             int idleTime = 0;
             int userTime = 0;
