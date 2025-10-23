@@ -61,11 +61,14 @@ public class cpuInfo
 
         // Sleep for 1 second and display the idle time percentage for
         // core 1.  This assumes 10Hz so in one second we have 100
-        cpu.read(1);
-        System.out.println("core 1 idle="+cpu.getIdleTime(1)+"%");
-        System.out.println("core 1 idle="+cpu.getIdleTime(2)+"%");
-        cpu.read(1);
-        System.out.println("core 1 idle="+cpu.getIdleTime(1)+"%");
-        System.out.println("core 1 idle="+cpu.getIdleTime(2)+"%");
+        int timer = 0;
+        while(timer < 10) {
+            cpu.read(1);
+            System.out.println("core 1 idle="+cpu.getIdleTime(1)+"%");
+            System.out.println("core 1 busy="+cpu.getUserTime(1)+"%");
+            System.out.println("core 2 idle="+cpu.getIdleTime(2)+"%");
+            System.out.println("core 2 busy="+cpu.getUserTime(2)+"%");
+            timer++;
+        }
     }
 }
