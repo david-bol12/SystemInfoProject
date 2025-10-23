@@ -64,7 +64,7 @@ public class cpuInfo
         int timer = 0;
         while(timer < 10) {
             cpu.read(1);
-            for (int i = 0; i < cpu.coresPerSocket(); i++) {
+            for (int i = 0; i < cpu.coresPerSocket() * 2; i++) {
                 System.out.println("core" + i + " idle="+cpu.getIdleTime(i)+"%");
                 System.out.println("core" + i + " busy="+cpu.getUserTime(i)+"%");
             }
