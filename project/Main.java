@@ -13,15 +13,9 @@ public class Main
         System.out.println("System Info Project");
         System.loadLibrary("sysinfo"); // Loads C++ Library
         cpuInfo cpu = new cpuInfo();
-        int timer = 5;
-        for (int i = 1; i < timer; i++) {
-            System.out.println("Time: " + i);
-            cpu.read(0);
-            for (int j = 1; j <= cpu.coresPerSocket(); j++) {
-                System.out.println("Core " + j + " User: " + cpu.getUserTime(j));
-                System.out.println("Core " + j + " Idle: " + cpu.getUserTime(j));
-            }
-        }
+        cpu.read(1);
+        System.out.println(cpu.getUserTime(1));
+        System.out.println(cpu.getIdleTime(1));
     }
 }
 
