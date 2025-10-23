@@ -14,16 +14,10 @@ public class Main
         System.loadLibrary("sysinfo"); // Loads C++ Library
         cpuInfo cpu = new cpuInfo();
         cpu.read(1);
-        System.out.println(cpu.coresPerSocket());
-        System.out.println(cpu.getUserTime(1));
-        System.out.println(cpu.getIdleTime(1));
-        cpu.read(1);
-        System.out.println("core 1: "+cpu.getUserTime(1));
-        System.out.println("core 1:"+cpu.getIdleTime(1));
-        System.out.println("core 2: "+cpu.getUserTime(2));
-        System.out.println("core 2:"+cpu.getIdleTime(2));
-
-
+        for (int i = 1; i <= cpu.coresPerSocket(); i++) {
+            System.out.println("Core " + i + " User: " + cpu.getUserTime(i));
+            System.out.println("Core " + i + " Idle: " + cpu.getUserTime(i));
+        }
     }
 }
 
