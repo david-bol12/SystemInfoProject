@@ -64,5 +64,8 @@ public class cpuInfo
         cpu.read(1);
         System.out.println("core 1 idle="+cpu.getIdleTime(1)+"%");
         System.out.println("core 1 idle="+cpu.getIdleTime(2)+"%");
+        cpu.read(1);
+        System.out.println("core 1 idle="+cpu.getIdleTime(1)+"%");
+        System.out.println("core 1 idle="+cpu.getIdleTime(2)+"%");
     }
 }
