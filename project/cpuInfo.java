@@ -63,5 +63,6 @@ public class cpuInfo
         // core 1.  This assumes 10Hz so in one second we have 100
         cpu.read(1);
         System.out.println("core 1 idle="+cpu.getIdleTime(1)+"%");
+        System.out.println("core 1 idle="+cpu.getIdleTime(2)+"%");
     }
 }
