@@ -70,6 +70,8 @@ public class cpuInfo
                 idleTime += cpu.getIdleTime(i);
                 userTime += cpu.getUserTime(i);
             }
+            double cpuLoad = (double) userTime / (idleTime + userTime);
+            System.out.println(cpuLoad);
             timer++;
         }
     }
