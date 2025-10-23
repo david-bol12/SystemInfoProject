@@ -16,7 +16,7 @@ public class Main
         int timer = 5;
         for (int i = 1; i < timer; i++) {
             System.out.println("Time: " + i);
-            cpu.read(1);
+            cpu.read(0);
             for (int j = 1; j <= cpu.coresPerSocket(); j++) {
                 System.out.println("Core " + j + " User: " + cpu.getUserTime(j));
                 System.out.println("Core " + j + " Idle: " + cpu.getUserTime(j));
