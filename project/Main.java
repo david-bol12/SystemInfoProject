@@ -12,10 +12,7 @@ public class Main
     {
         System.out.println("System Info Project");
         System.loadLibrary("sysinfo"); // Loads C++ Library
-        cpuInfo cpu = new cpuInfo();
-        cpu.read(1);
-        System.out.println(cpu.getUserTime(1));
-        System.out.println(cpu.getIdleTime(1));
+        cpuInfo.showCPU();
     }
 }
 
