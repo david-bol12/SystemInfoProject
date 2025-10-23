@@ -18,8 +18,12 @@ public class Main
         System.out.println(cpu.getUserTime(1));
         System.out.println(cpu.getIdleTime(1));
         cpu.read(1);
-        System.out.println(cpu.getUserTime(1));
-        System.out.println(cpu.getIdleTime(1));
+        System.out.println("core 1: "+cpu.getUserTime(1));
+        System.out.println("core 1:"+cpu.getIdleTime(1));
+        System.out.println("core 2: "+cpu.getUserTime(2));
+        System.out.println("core 2:"+cpu.getIdleTime(2));
+
+
     }
 }
 
