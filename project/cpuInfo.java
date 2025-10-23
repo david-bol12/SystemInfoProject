@@ -64,10 +64,10 @@ public class cpuInfo
         int timer = 0;
         while(timer < 10) {
             cpu.read(1);
-            System.out.println("core 1 idle="+cpu.getIdleTime(1)+"%");
-            System.out.println("core 1 busy="+cpu.getUserTime(1)+"%");
-            System.out.println("core 2 idle="+cpu.getIdleTime(2)+"%");
-            System.out.println("core 2 busy="+cpu.getUserTime(2)+"%");
+            for (int i = 0; i < cpu.coresPerSocket(); i++) {
+                System.out.println("core" + i + " idle="+cpu.getIdleTime(i)+"%");
+                System.out.println("core" + i + " busy="+cpu.getUserTime(i)+"%");
+            }
             timer++;
         }
     }
