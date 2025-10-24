@@ -8,7 +8,20 @@
 
 public class Main
 {
-
+public static void showDisk()
+    {
+        diskInfo disk = new diskInfo();
+        disk.read();
+        
+        for (int i = 0; i < disk.diskCount(); i++) {
+            System.out.printf("Disk %s: Total: %.2f GB, Used: %.2f GB (%.1f%%), Type: %s%n",
+                    disk.getName(i),
+                    disk.getTotalGB(i),
+                    disk.getUsedGB(i),
+                    disk.getPercentUsed(i),
+                    disk.getType(i));
+        }
+    }
     // Create a new branch before editing any code in main
     public static void main(String[] args)
     {
@@ -17,8 +30,7 @@ public class Main
         System.loadLibrary("sysinfo"); // Loads C++ Library
         showMemInfo m1 = new showMemInfo();
         m1.showMemoryUsage();
-        showDiskInfo d1 = new showDiskInfo();
-        d1.diskMethod();
+        
         
 }
         
@@ -48,25 +60,6 @@ class showMemInfo {
     }
 }
 
-class showDiskInfo {
-    private diskInfo disk;
 
-    public showDiskInfo() {
-        disk = new diskInfo();
-    }
 
-    public void diskMethod() {
-        disk.read();
-
-        
-        for (int i = 0; i < disk.diskCount(); i++) {
-            double totalGB = disk.getTotal(i) / (1024.0 * 1024.0 * 1024.0);
-            System.out.println ("disk "+disk.getName(i)+" has "+
-                    disk.getTotal(i)+" blocks, of which "+
-                    disk.getUsed(i)+" are used");
-            System.out.printf("Block GB: %.2f%n", totalGB);
-        }
-
-    }
             
-}
