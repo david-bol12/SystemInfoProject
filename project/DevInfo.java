@@ -1,12 +1,15 @@
-import java.util.*;
+import java.util.Set;
+import java.util.HashSet;
 
 public class DevInfo {
 
     public native void read(); // Refreshes all current counters
 
-    private static  int pollInterval = 2000; // 2000 ms interval between each while statement,esesntially creates an endless loop while running
+    private static  int scanInterval = 2000; // 2000 ms interval between each while statement,esesntially creates an endless loop while running
 
-        public void devInfo() throws InterruptedException { // Create a method called devInfo() which will raise an InterruptedException when certain conditions are met
+
+
+         public void devInfo() throws InterruptedException { // Create a method called devInfo() which will raise an InterruptedException when certain conditions are met
         usbInfo usb = new usbInfo(); // Create an instance of the usb class, this should help when reafding the usb bus
         Set<String> previousDevices = new HashSet<>(); // Creates a hash set of the previous devices, needed to register what devices already exist in the bus
 
@@ -27,12 +30,13 @@ public class DevInfo {
                     System.out.println("USB device removed: " + device);
                 }  // what this is telling us; as the for statement cycles through eaach of the previous devices, if it cant find a device that was in the current devices hash map, then it must have been removed
                 }
-            } // end of the while statement
+            // end of the while statement
 
             previousDevices = currentDevices;  // Statement is neccesary to ensure there is no confusion, makes it so all devices that were currently registered aare now in the current device H.M, i.e makes it so it doesnt read the same device as a new device
             Thread.sleep(scanInterval); // calls the scanInterval, takes a 2 second break then goes through the while statement again
         }
 }
+
 
        public static Set<String> getConnectedDevices(usbInfo usb) {
         Set<String> devices = new HashSet<>();
@@ -51,8 +55,9 @@ public class DevInfo {
                         " and product "+String.format("0x%04X", usb.productID(i,j)));
             }
         }
-
-    }    
+        return devices;
+    } 
+}
 
 /*  public static void main(String[] args) throws InterruptedException{
     usbInfo u1 = new usbInfo(); //calls upon the usbInfo class which will refresh the all
