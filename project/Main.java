@@ -4,6 +4,11 @@
  *  Copyright (c) 2024 Mark Burkley (mark.burkley@ul.ie)
  */
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 public class Main extends Thread
 {
 
@@ -16,6 +21,7 @@ public class Main extends Thread
         thread.start();
         System.out.println("This code is outside of the thread");
         cpuInfo.showCPU();
+        SwingUtilities.invokeLater(() -> new Display().createAndShowGUI());
     }
     public void run() {
         System.out.println("This code is running in a thread");

@@ -43,6 +43,18 @@ public class cpuInfo
     // that the specified core has been in system mode
     public native int getSystemTime (int core);
 
+    public double getCPULoad() {
+        read(1);
+        int idleTime = 0;
+        int userTime = 0;
+        for (int i = 0; i < coresPerSocket(); i++) {
+            idleTime += getIdleTime(i);
+            userTime += getUserTime(i);
+        }
+        double cpuLoad = (double) userTime / (idleTime + userTime);
+        return cpuLoad * 100;
+    }
+
     public static void showCPU()
     {
         cpuInfo cpu = new cpuInfo();
