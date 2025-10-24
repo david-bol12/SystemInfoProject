@@ -83,8 +83,7 @@ public class cpuInfo
                 userTime += cpu.getUserTime(i);
             }
             double cpuLoad = (double) userTime / (idleTime + userTime);
-            System.out.println(cpuLoad * 100 + "%");
-            display.setCpuLoad(cpuLoad * 100 + "%");
+            display.setCpuLoad(cpuLoad * 100);
             timer++;
         }
     }

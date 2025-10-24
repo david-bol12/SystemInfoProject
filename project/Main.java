@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 public class Main extends Thread
 {
 
-    private Display display = new Display();
+    private static Display display = new Display();
     private cpuInfo cpu = new cpuInfo();
 
     // Create a new branch before editing any code in main
@@ -23,12 +23,30 @@ public class Main extends Thread
         Main thread = new Main();
         thread.start();
         System.out.println("This code is outside of the thread");
+        cpuInfo.showCPU(display);
 
     }
     public void run() {
-        System.out.println("This code is running in a thread");
+        int FPS_SET = 20;
+        double timePerFrame = 1000000000.0 / FPS_SET;
+        long lastFrame = System.nanoTime();
 
-        cpuInfo.showCPU(display);
+        int frames = 0;
+        long lastCheck = System.currentTimeMillis();
+
+        while (true) {
+            if ((System.nanoTime() - lastFrame) >= timePerFrame) {
+                display.paint();
+                lastFrame = System.nanoTime();
+                frames++;
+            }
+
+            if (System.currentTimeMillis() - lastCheck >= 1000) {
+                lastCheck = System.currentTimeMillis();
+                System.out.println("FPS: " + frames);
+                frames = 0;
+            }
+        }
     }
 }
 

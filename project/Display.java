@@ -23,9 +23,12 @@ public class Display {
         frame.setVisible(true);
     }
 
-    public void setCpuLoad(String cpuLoad) {
-        label.setText(cpuLoad);
-        System.out.println(String.valueOf(cpuLoad));
+    public void paint() {
+        label.setText("CPU Load: " + cpuLoad + "%");
+    }
+
+    public void setCpuLoad(double cpuLoad) {
+        this.cpuLoad = cpuLoad;
     }
 }
 
