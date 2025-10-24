@@ -15,6 +15,7 @@ public class Main extends Thread
         Main thread = new Main();
         thread.start();
         System.out.println("This code is outside of the thread");
+        cpuInfo.showCPU();
     }
     public void run() {
         System.out.println("This code is running in a thread");
