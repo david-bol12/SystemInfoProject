@@ -36,9 +36,8 @@ public class Main extends Thread
             userTime += cpu.getUserTime(i);
         }
         double cpuLoad = (double) userTime / (idleTime + userTime);
-        System.out.println(cpuLoad);
-        display.setCpuLoad(cpuLoad);
-        cpuInfo.showCPU();
+        System.out.println(cpuLoad * 100 + "%");
+        display.setCpuLoad(cpuLoad * 100 + "%");
     }
 }
 
