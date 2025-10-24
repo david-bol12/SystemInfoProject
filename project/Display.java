@@ -26,6 +26,7 @@ public class Display {
     public void setCpuLoad(double cpuLoad) {
         this.cpuLoad = cpuLoad;
         label.setText(String.valueOf(cpuLoad));
+        System.out.println(String.valueOf(cpuLoad));
     }
 }
 
