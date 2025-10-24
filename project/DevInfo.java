@@ -14,26 +14,27 @@ public class DevInfo {
         Set<String> previousDevices = new HashSet<>(); // Creates a hash set of the previous devices, needed to register what devices already exist in the bus
 
             while (true) {
-                usb.read(); // refresh hardware info
-                Set<String> currentDevices = getConnectedDevices(usb); // Creates a hash set of the current devices in the usb bus, 
+                usb.read();
+                Set<String> currentDevices = getConnectedDevices(usb);
 
-                // Detect new devices
-                for (String device : currentDevices) { // reads through all the current devices 
-                if (!previousDevices.contains(device)) {
-                    System.out.println("USB device inserted: " + device);
-                } // what this is telling us; as the for statement cycles through eaach of the current devices, if it finds a device that has not been sorted intp the previous device hash map then it has to be a new device
+                // Detect insertions
+                for (String deviceId : currentDevices) {
+                    if (!previousDevices.contains(deviceId)) {
+                    System.out.println("USB device inserted: " + deviceId);
+                    }
                 }
 
-            // Detect removed devices
-                for (String device : previousDevices) { // reads therough all of the previous devices
-                if (!currentDevices.contains(device)) {
-                    System.out.println("USB device removed: " + device);
-                }  // what this is telling us; as the for statement cycles through eaach of the previous devices, if it cant find a device that was in the current devices hash map, then it must have been removed
-                }
-            // end of the while statement
+        // Detect removals
+                for (String deviceId : previousDevices) {
+                    if (!currentDevices.contains(deviceId)) {
+                    System.out.println("USB device removed: " + deviceId);
+                    }               
+                    }
 
-            previousDevices = new HashSet<>(currentDevices);  // Statement is neccesary to ensure there is no confusion, makes it so all devices that were currently registered aare now in the current device H.M, i.e makes it so it doesnt read the same device as a new device
-            Thread.sleep(scanInterval); // calls the scanInterval, takes a 2 second break then goes through the while statement again
+        // Update previousDevices as a new set
+        previousDevices = new HashSet<>(currentDevices);
+
+                
         }
 }
 
