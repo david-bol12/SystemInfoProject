@@ -48,8 +48,8 @@ class showMemInfo {
         int total = memory.getTotal(); 
         int used = memory.getUsed();
 
-        double totalGB = total / (1024.0 * 1024.0 * 1024.0);
-        double usedGB = used / (1024.0 * 1024.0 * 1024.0);
+        double totalGB = total / (1024.0 * 1024.0);
+        double usedGB = used / (1024.0 * 1024.0);
         double freeGB = totalGB - usedGB;
         double usedPercent = (usedGB / totalGB) * 100;
 
