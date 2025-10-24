@@ -39,21 +39,26 @@ public class DevInfo {
 }
 
 
-      private static Set<String> getConnectedDevices(usbInfo usb) {
-        Set<String> devices = new HashSet<>();
+public static Set<String> getConnectedDevices(usbInfo usb) {
+    Set<String> devices = new HashSet<>();
+    int buses = usb.busCount();
 
-        int buses = usb.busCount();
-        for (int i = 1; i <= buses; i++) {
-            int deviceCount = usb.deviceCount(i);
-            for (int j = 1; j <= deviceCount; j++) {
-                int vendor = usb.vendorID(i, j);
-                int product = usb.productID(i, j);
-                String id = String.format("Bus %d | Vendor 0x%04X | Product 0x%04X",
-                                          i, vendor, product);
-                devices.add(id);
+    for (int i = 1; i <= buses; i++) {
+        int deviceCount = usb.deviceCount(i);
+        for (int j = 1; j <= deviceCount; j++) {
+            int vendor = usb.vendorID(i, j);
+            int product = usb.productID(i, j);
+
+            // Ignore empty/placeholder devices
+            if (vendor == 0x0000 && product == 0x0000) {
+                continue;
             }
+
+            String deviceId = String.format("Bus %d | Vendor 0x%04X | Product 0x%04X", i, vendor, product);
+            devices.add(deviceId);
         }
-        return devices;
+    }
+    return devices;
     }
 }
 
