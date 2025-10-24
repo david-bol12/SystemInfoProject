@@ -38,6 +38,9 @@ public class usbInfo
                 System.out.println("Bus "+i+" device "+j+
                         " has vendor "+String.format("0x%04X", usb.vendorID(i,j))+
                         " and product "+String.format("0x%04X", usb.productID(i,j)));
+                        if(usb.vendorID(j, i)== 0x0000) {
+                            continue;
+                        }
             }
         }
     }
