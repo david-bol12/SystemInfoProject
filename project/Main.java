@@ -12,6 +12,9 @@ import java.awt.event.ActionListener;
 public class Main extends Thread
 {
 
+    private Display display = new Display();
+    private cpuInfo cpu = new cpuInfo();
+
     // Create a new branch before editing any code in main
     public static void main(String[] args)
     {
@@ -20,12 +23,11 @@ public class Main extends Thread
         Main thread = new Main();
         thread.start();
         System.out.println("This code is outside of the thread");
-        cpuInfo.showCPU();
-        SwingUtilities.invokeLater(() -> new Display().createAndShowGUI());
+
     }
     public void run() {
         System.out.println("This code is running in a thread");
-        cpuInfo.showCPU();
+        display.setCpuLoad(cpu.getCPULoad());
     }
 }
 
