@@ -11,6 +11,9 @@ public class Main {
         System.out.println("System Info Project");
         System.loadLibrary("sysinfo"); // Loads C++ Library
         System.out.println("In bus branch");
+
+        usbInfo.showUSB();
+
  }
 }
 

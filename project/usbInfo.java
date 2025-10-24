@@ -6,10 +6,6 @@
 
 public class usbInfo 
 {
-    static {
-    System.loadLibrary("sysinfo");
-   }
-
     // Refresh the current values and counters - call this before other methods
     public native void read ();
 
