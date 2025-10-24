@@ -69,8 +69,8 @@ public class cpuInfo
             for (int i = 0; i < cpu.coresPerSocket(); i++) {
                 idleTime += cpu.getIdleTime(i);
                 userTime += cpu.getUserTime(i);
-                System.out.println("core " + i + " Idle = " + idleTime);
-                System.out.println("core " + i + " Busy = " + userTime);
+                System.out.println("core " + i + " Idle = " + cpu.getIdleTime(i));
+                System.out.println("core " + i + " Busy = " + cpu.getUserTime(i));
             }
             double cpuLoad = (double) userTime / (idleTime + userTime);
             System.out.println(cpuLoad * 100 + "%");
