@@ -19,9 +19,18 @@ int scanInterval = 2000;
 
 while (true) {
     usb.read();
+int buses = usb.busCount();
+for (int i = 1; i <= buses; i++) {
+    int deviceCount = usb.deviceCount(i);
+    System.out.println("Bus " + i + " device count: " + deviceCount);
+    for (int j = 1; j <= deviceCount; j++) {
+        System.out.printf("Device %d: vendor=0x%04X product=0x%04X%n",
+            j, usb.vendorID(i, j), usb.productID(i, j));
+    }
+}
+
 
     Map<String, String> deviceInfo = new HashMap<>();
-    int buses = usb.busCount();
     for (int i = 1; i <= buses; i++) {
         int deviceCount = usb.deviceCount(i);
         for (int j = 1; j <= deviceCount; j++) {
