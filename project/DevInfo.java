@@ -2,7 +2,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-public class DevInfo {
+ class DevInfo {
 
     private static final int SCAN_INTERVAL_MS = 2000; // 2 seconds
 
