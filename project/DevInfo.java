@@ -5,7 +5,7 @@ public class DevInfo {
 
     public native void read(); // Refreshes all current counters
 
-    private static  int scanInterval = 2000; // 2000 ms interval between each while statement,esesntially creates an endless loop while running
+    private static  int scanInterval = 5000; // 2000 ms interval between each while statement,esesntially creates an endless loop while running
 
 
 
@@ -38,25 +38,22 @@ public class DevInfo {
 }
 
 
-       public static Set<String> getConnectedDevices(usbInfo usb) {
+      private static Set<String> getConnectedDevices(usbInfo usb) {
         Set<String> devices = new HashSet<>();
 
         int buses = usb.busCount();
-
         for (int i = 1; i <= buses; i++) {
-            System.out.println("Bus "+i+" has "+
-                    usb.deviceCount(i)+" devices");
-
-            // Iterate through all of the USB devices on the bus
             int deviceCount = usb.deviceCount(i);
             for (int j = 1; j <= deviceCount; j++) {
-                System.out.println("Bus "+i+" device "+j+
-                        " has vendor "+String.format("0x%04X", usb.vendorID(i,j))+
-                        " and product "+String.format("0x%04X", usb.productID(i,j)));
+                int vendor = usb.vendorID(i, j);
+                int product = usb.productID(i, j);
+                String id = String.format("Bus %d | Vendor 0x%04X | Product 0x%04X",
+                                          i, vendor, product);
+                devices.add(id);
             }
         }
         return devices;
-    } 
+    }
 }
 
 /*  public static void main(String[] args) throws InterruptedException{
