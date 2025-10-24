@@ -55,7 +55,7 @@ public class cpuInfo
         return cpuLoad * 100;
     }
 
-    public static void showCPU()
+    public static void showCPU(Display display)
     {
         cpuInfo cpu = new cpuInfo();
         cpu.read(0);
@@ -84,6 +84,7 @@ public class cpuInfo
             }
             double cpuLoad = (double) userTime / (idleTime + userTime);
             System.out.println(cpuLoad * 100 + "%");
+            display.setCpuLoad(cpuLoad * 100 + "%");
             timer++;
         }
     }
