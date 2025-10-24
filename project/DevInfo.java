@@ -1,26 +1,25 @@
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 public class DevInfo {
 
     private static final int SCAN_INTERVAL_MS = 2000; // 2 seconds
 
-    public  void devInfo() throws InterruptedException {
-        usbInfo usb = new usbInfo(); // create usbInfo instance
+    public static void main(String[] args) throws InterruptedException {
+        usbInfo usb = new usbInfo(); // Create the USB info instance
         Set<String> previousDevices = new HashSet<>();
 
         System.out.println("Starting USB monitoring...");
 
         while (true) {
-            usb.read(); // refresh USB info
+            usb.read(); // Refresh the USB info
 
             Set<String> currentDevices = new HashSet<>();
 
             int buses = usb.busCount();
             for (int i = 1; i <= buses; i++) {
                 int deviceCount = usb.deviceCount(i);
-                System.out.println("Bus " + i + " has " + deviceCount + " devices");
-
                 for (int j = 1; j <= deviceCount; j++) {
                     int vendor = usb.vendorID(i, j);
                     int product = usb.productID(i, j);
@@ -31,22 +30,38 @@ public class DevInfo {
                     String deviceId = String.format("Bus %d | Vendor 0x%04X | Product 0x%04X", i, vendor, product);
                     currentDevices.add(deviceId);
 
-                    // Detect inserted devices
+                    // Detect newly inserted devices
                     if (!previousDevices.contains(deviceId)) {
                         System.out.println("🔌 USB device inserted: " + deviceId);
                     }
                 }
             }
 
-            // Removal detection is NOT possible due to library limitations
-            // Any unplugged device will remain in the library's internal list
-            // Explain this in your report if required
+            // Remove dead devices from previousDevices (optional cleanup)
+            removeDeadDevices(previousDevices);
 
-            previousDevices = new HashSet<>(currentDevices); // copy for next iteration
+            // Update previousDevices for next iteration
+            previousDevices = new HashSet<>(currentDevices);
+
             Thread.sleep(SCAN_INTERVAL_MS);
         }
     }
+
+    /**
+     * Remove dead devices (vendorID=0x0000 and productID=0x0000)
+     * from a set of device strings.
+     */
+    private static void removeDeadDevices(Set<String> devices) {
+        Iterator<String> it = devices.iterator();
+        while (it.hasNext()) {
+            String device = it.next();
+            if (device.contains("0x0000")) {
+                it.remove();
+            }
+        }
+    }
 }
+
 
 
 /*  public static void main(String[] args) throws InterruptedException{
