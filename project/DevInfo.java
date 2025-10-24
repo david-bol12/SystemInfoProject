@@ -59,6 +59,7 @@ for (int i = 1; i <= buses; i++) {
             System.out.println("USB removed: " + key);
         }
     }
+     previousDevices.removeIf(d -> d.contains("0x0000"));
 
     previousDevices = new HashSet<>(currentDeviceKeys);
     Thread.sleep(scanInterval);
