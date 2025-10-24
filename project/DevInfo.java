@@ -6,7 +6,7 @@ public class DevInfo {
 
     private static final int SCAN_INTERVAL_MS = 2000; // 2 seconds
 
-    public static void main(String[] args) throws InterruptedException {
+    public void devInfo() throws InterruptedException {
         usbInfo usb = new usbInfo(); // Create the USB info instance
         Set<String> previousDevices = new HashSet<>();
 
