@@ -1,5 +1,4 @@
-import java.util.Map;
-import java.util.HashMap;
+
 import java.util.Set;
 import java.util.HashSet;
 
@@ -15,54 +14,47 @@ public class DevInfo {
         usbInfo usb = new usbInfo(); // Create an instance of the usb class, this should help when reafding the usb bus
         Set<String> previousDevices = new HashSet<>(); // Creates a hash set of the previous devices, needed to register what devices already exist in the bus
 
-int scanInterval = 2000;
-
 while (true) {
-    usb.read();
+    // Refresh USB info
+usb.read();
+
+// Build current devices set
+Set<String> currentDevices = new HashSet<>();
 int buses = usb.busCount();
 for (int i = 1; i <= buses; i++) {
     int deviceCount = usb.deviceCount(i);
-    System.out.println("Bus " + i + " device count: " + deviceCount);
     for (int j = 1; j <= deviceCount; j++) {
-        System.out.printf("Device %d: vendor=0x%04X product=0x%04X%n",
-            j, usb.vendorID(i, j), usb.productID(i, j));
+        int vendor = usb.vendorID(i, j);
+        int product = usb.productID(i, j);
+
+        // Skip dead devices (vendor/product 0x0000)
+        if (vendor == 0x0000 && product == 0x0000) continue;
+
+        String deviceId = String.format("Bus %d | Vendor 0x%04X | Product 0x%04X", i, vendor, product);
+        currentDevices.add(deviceId);
     }
 }
 
+// Remove dead devices from previousDevices
+previousDevices.removeIf(d -> d.contains("0x0000"));
 
-    Map<String, String> deviceInfo = new HashMap<>();
-    for (int i = 1; i <= buses; i++) {
-        int deviceCount = usb.deviceCount(i);
-        for (int j = 1; j <= deviceCount; j++) {
-            int vendor = usb.vendorID(i, j);
-            int product = usb.productID(i, j);
-
-            if (vendor == 0x0000 && product == 0x0000) continue;
-
-            String deviceKey = String.format("bus%d-device%d", i, j);
-            deviceInfo.put(deviceKey, String.format("Vendor 0x%04X | Product 0x%04X", vendor, product));
-        }
+// Detect inserted devices
+for (String device : currentDevices) {
+    if (!previousDevices.contains(device)) {
+        System.out.println("USB device inserted: " + device);
     }
+}
 
-    Set<String> currentDeviceKeys = deviceInfo.keySet();
-
-    // Insertions
-    for (String key : currentDeviceKeys) {
-        if (!previousDevices.contains(key)) {
-            System.out.println("USB inserted: " + deviceInfo.get(key));
-        }
+// Detect removed devices
+for (String device : previousDevices) {
+    if (!currentDevices.contains(device)) {
+        System.out.println("USB device removed: " + device);
     }
+}
 
-    // Removals
-    for (String key : previousDevices) {
-        if (!currentDeviceKeys.contains(key)) {
-            System.out.println("USB removed: " + key);
-        }
-    }
-     previousDevices.removeIf(d -> d.contains("0x0000"));
+// Update previousDevices for the next iteration
+previousDevices = new HashSet<>(currentDevices);
 
-    previousDevices = new HashSet<>(currentDeviceKeys);
-    Thread.sleep(scanInterval);
         }
     }
 }
