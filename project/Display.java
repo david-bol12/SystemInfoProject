@@ -18,7 +18,7 @@ public class Display {
         // Layout setup
         frame.setLayout(new BorderLayout());
         frame.add(cpuLoadLabel, BorderLayout.CENTER);
-        frame.add(coreCountLabel, BorderLayout.AFTER_LAST_LINE);
+        frame.add(coreCountLabel, BorderLayout.CENTER);
 
         // Make frame visible
         frame.setVisible(true);
@@ -26,6 +26,7 @@ public class Display {
 
     public void paint() {
         cpuLoadLabel.setText(String.format("CPU Load: %.2f", cpuLoad) + "%");
+        cpuLoadLabel.setText("CPU Core Count: " + coreCount);
     }
 
     public void setCpuLoad(double cpuLoad) {
