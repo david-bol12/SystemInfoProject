@@ -7,6 +7,10 @@ import java.util.Set;
     private static final int SCAN_INTERVAL_MS = 2000; // 2 seconds
 
     public static void main(String[] args) throws InterruptedException {
+
+        System.out.println("System Info Project");
+        System.loadLibrary("sysinfo"); // Loads C++ Library
+        System.out.println("In bus branch");
         usbInfo usb = new usbInfo(); // Create the USB info instance
         Set<String> previousDevices = new HashSet<>();
 
