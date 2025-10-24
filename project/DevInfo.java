@@ -2,11 +2,11 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
- class DevInfo {
+ public class DevInfo {
 
     private static final int SCAN_INTERVAL_MS = 2000; // 2 seconds
 
-    public void devInfo() throws InterruptedException {
+    public static void main(String[] args) throws InterruptedException {
         usbInfo usb = new usbInfo(); // Create the USB info instance
         Set<String> previousDevices = new HashSet<>();
 
