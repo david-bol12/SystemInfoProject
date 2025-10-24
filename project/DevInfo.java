@@ -32,7 +32,7 @@ public class DevInfo {
                 }
             // end of the while statement
 
-            previousDevices = currentDevices;  // Statement is neccesary to ensure there is no confusion, makes it so all devices that were currently registered aare now in the current device H.M, i.e makes it so it doesnt read the same device as a new device
+            previousDevices = new HashSet<>(currentDevices);  // Statement is neccesary to ensure there is no confusion, makes it so all devices that were currently registered aare now in the current device H.M, i.e makes it so it doesnt read the same device as a new device
             Thread.sleep(scanInterval); // calls the scanInterval, takes a 2 second break then goes through the while statement again
         }
 }
