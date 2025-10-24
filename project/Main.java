@@ -27,7 +27,17 @@ public class Main extends Thread
     }
     public void run() {
         System.out.println("This code is running in a thread");
-        display.setCpuLoad(cpu.getCPULoad());
+
+        cpu.read(1);
+        int idleTime = 0;
+        int userTime = 0;
+        for (int i = 0; i < cpu.coresPerSocket(); i++) {
+            idleTime += cpu.getIdleTime(i);
+            userTime += cpu.getUserTime(i);
+        }
+        double cpuLoad = (double) userTime / (idleTime + userTime);
+        System.out.println(cpuLoad);
+        display.setCpuLoad(cpuLoad);
     }
 }
 
