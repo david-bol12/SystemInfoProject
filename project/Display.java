@@ -1,12 +1,12 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class Display {
 
     private double cpuLoad = 0;
-    JLabel label = new JLabel(String.valueOf(cpuLoad), SwingConstants.CENTER);
+    private int coreCount = 0;
+    JLabel cpuLoadLabel = new JLabel(String.valueOf(cpuLoad), SwingConstants.CENTER);
+    JLabel coreCountLabel = new JLabel(String.valueOf(coreCount), SwingConstants.CENTER);
 
     public Display() {
         // Create the main frame (window)
@@ -17,18 +17,23 @@ public class Display {
 
         // Layout setup
         frame.setLayout(new BorderLayout());
-        frame.add(label, BorderLayout.CENTER);
+        frame.add(cpuLoadLabel, BorderLayout.CENTER);
+        frame.add(coreCountLabel, BorderLayout.AFTER_LAST_LINE);
 
         // Make frame visible
         frame.setVisible(true);
     }
 
     public void paint() {
-        label.setText("CPU Load: " + cpuLoad + "%");
+        cpuLoadLabel.setText(String.format("CPU Load: %.2f", cpuLoad) + "%");
     }
 
     public void setCpuLoad(double cpuLoad) {
         this.cpuLoad = cpuLoad;
+    }
+
+    public void setCoreCount(int coreCount) {
+        this.coreCount = coreCount;
     }
 }
 
