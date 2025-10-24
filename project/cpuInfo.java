@@ -75,7 +75,7 @@ public class cpuInfo
         // core 1.  This assumes 10Hz so in one second we have 100
         int timer = 0;
         while(true) {
-            cpu.read(1);
+            cpu.read(500);
             int idleTime = 0;
             int userTime = 0;
             for (int i = 0; i < cpu.coresPerSocket(); i++) {

@@ -129,7 +129,7 @@ void CPUInfo::_parseStat (char buffer[])
 void CPUInfo::read(int seconds)
 {
     if (seconds)
-        sleep (seconds);
+        usleep (seconds * 1000);
 
     std::array<char, 4096> buffer;
     std::unique_ptr<FILE, decltype(&pclose)> pipe(popen("lscpu -B", "r"), pclose);
