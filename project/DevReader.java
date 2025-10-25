@@ -47,7 +47,11 @@ public class DevReader
 	}
 
     for (Map.Entry<Integer, Integer> pair : pairs) {
+<<<<<<< HEAD
             System.out.println(String.format("0x%04X", pair.getKey()) + ", " + String.format("0x%04X", pair.getValue()));
+=======
+            System.out.println(String.format("0x%04X",pair.getKey()) + ", " + String.format("0x%04X",pair.getValue()));
+>>>>>>> 992040e98c5591409681e317594f7a20cee12510
         }
     }
 }
