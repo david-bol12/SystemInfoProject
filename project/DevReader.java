@@ -39,18 +39,17 @@ public class DevReader
             if (vendor != 0 && product != 0) {
                 pairs.add(new AbstractMap.SimpleEntry<>(vendor, product));
                 validDeviceCount++;
-                System.out.println("Bus " + i + " device " + validDeviceCount +
+               System.out.println("Bus " + i + " device " + validDeviceCount +
                         " has vendor " + String.format("0x%04X", vendor) +
                         " and product " + String.format("0x%04X", product));
             }
-        }
+	}
+	}
 
-      }
     for (Map.Entry<Integer, Integer> pair : pairs) {
-            System.out.println(pair.getKey() + ", " + pair.getValue());
+            System.out.println(String.format("0x%04X", pair.getKey()) + ", " + String.format("0x%04X", pair.getValue()));
         }
     }
 }
-
 
 
