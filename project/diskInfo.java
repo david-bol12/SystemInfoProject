@@ -15,28 +15,63 @@ public class diskInfo
     public native long getAvailable (int disk);
     
     
-   public double getPercentUsed(int disk) {
-        read();
+    public double getPercentUsed(int disk) {
         double total = getTotal(disk);
         double used = getUsed(disk);
         if (total == 0) {
             return 0; 
         }
         return (double) used / total * 100;
+    }  
+
+    public double getPercentFree(int disk) {
+    double total = getTotal(disk);
+    double available = getAvailable(disk);
+    if (total == 0) {
+        return 0;
     }
-    
-    public double getTotalGB(int disk) {
-        read();
+    return (available / total) * 100;
+    }
+
+    public double getFreeGiB(int disk) {
+        double available = getAvailable(disk);
+        double availableGiB = available / (1024 * 1024 );
+        return availableGiB;
+    }
+
+    public double getTotalGiB(int disk) {  
         double total = getTotal(disk);
-        double totalGB = total / (1024 * 1024 * 1024);
+        double totalGiB = total / (1024 * 1024 );
+        return totalGiB;
+    }
+
+    public double getTotalGB(int disk) {  
+        double total = getTotal(disk);
+        double totalGB = total / (1000 * 1000 );
         return totalGB;
     }
 
-     public double getUsedGB(int disk) {
-        read();
+
+    public double getUsedGiB(int disk) {
         double used = getUsed(disk);
-        double usedGB = used / (1024 * 1024 * 1024);
+        double usedGiB = used / (1024 * 1024 );
+        return usedGiB;
+    }
+
+    public double getUsedGB(int disk) {
+        double used = getUsed(disk);
+        double usedGB = used / (1000 * 1000 );
         return usedGB;
+    }
+
+    public String healthStatus(int disk) {
+        if (getPercentUsed(disk) > 95.0) {
+            return "Critical - Almost Full";
+        } else if (getPercentUsed(disk) > 80.0) {
+            return "Warning - Getting Full";
+        } else {
+            return "Healthy - Sufficient Space";
+        }
     }
 
     public String getType(int disk) {
