@@ -13,6 +13,23 @@ public class diskInfo
     public native long getTotal (int disk);
     public native long getUsed (int disk);
     public native long getAvailable (int disk);
+
+    public static void showDisk()
+    {
+        diskInfo disk = new diskInfo();
+        disk.read();
+
+        for (int i = 0; i < disk.diskCount(); i++) {
+            System.out.printf("Disk: %s, Type: %s, Total: %.2f GiB, Used: %.2f GiB (%.1f%%), Current Health: %s%n",
+                    disk.getName(i),
+                    disk.getType(i),
+                    disk.getTotalGiB(i),
+                    disk.getUsedGiB(i),
+                    disk.getPercentUsed(i),
+                    disk.healthStatus(i)
+            );
+        }
+    }
     
     
     public double getPercentUsed(int disk) {
