@@ -29,9 +29,9 @@ public class Display extends Thread {
         frame.setLayout(new BorderLayout());
 
         for (int i = 0; i < headers.length; i++) {
-            frame.add(headers[i]);
+            frame.add(headers[i], BorderLayout.NORTH);
             bodies[i] = new Body(lines[i]);
-            frame.add(bodies[i]);
+            frame.add(bodies[i], BorderLayout.NORTH);
         }
 
         // Make frame visible
@@ -90,6 +90,7 @@ class Body extends JPanel {
     public Body(String[] lines) {
         super(new GridLayout(lines.length, 1, 10 ,10));
         this.lines = lines;
+        setBackground(Color.blue);
         labels = new JLabel[lines.length];
         for (int i = 0; i < labels.length; i++) {
             labels[i] = new JLabel(lines[i]);
@@ -113,6 +114,7 @@ class Header extends JPanel {
 
     public Header(String title) {
         super(new FlowLayout(FlowLayout.RIGHT, 10, 10));
+        setBackground(Color.red);
         label.setText(title);
         label.setFont(new Font("TimesRoman", Font.BOLD, 16));
         add(label);
