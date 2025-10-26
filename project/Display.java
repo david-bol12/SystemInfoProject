@@ -3,23 +3,31 @@ import java.awt.*;
 
 public class Display extends Thread {
 
-    private int coreCount = 0;
-    DeviceInfo device;
-    JLabel cpuLoadLabel = new JLabel("0.0", SwingConstants.CENTER);
-    JLabel coreCountLabel = new JLabel(String.valueOf(coreCount), SwingConstants.CENTER);
+    private DeviceInfo device;
+    private JFrame frame = new JFrame("System Info App");
+    private String[] lines;
+    private JLabel[] labels;
 
     public Display(DeviceInfo device) {
         // Create the main frame (window)
         this.device = device;
-        JFrame frame = new JFrame("System Info App");
+        this.lines = new String[] {
+                String.format("CPU Load: %.2f%%", device.getCpuLoad()),
+                String.format("Total CPU Cores: %d", device.coresPerSocket),
+        };
+
+        labels = new JLabel[lines.length];
+
+        for (int i = 0; i < labels.length; i++) {
+            labels[i] = new JLabel(lines[i]);
+        }
+
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 300);
         frame.setLocationRelativeTo(null); // Center the window on screen
 
         // Layout setup
-        frame.setLayout(new BorderLayout());
-        frame.add(cpuLoadLabel, BorderLayout.CENTER);
-        frame.add(coreCountLabel, BorderLayout.AFTER_LAST_LINE);
+        frame.setLayout(new GridLayout(labels.length, 1, 10, 5));
 
         // Make frame visible
         frame.setVisible(true);
@@ -50,11 +58,9 @@ public class Display extends Thread {
     }
 
     public void paint() {
-        cpuLoadLabel.setText(String.format("CPU Load: %.2f", device.getCpuLoad()) + "%");
-    }
-
-    public void setCoreCount(int coreCount) {
-        this.coreCount = coreCount;
+        for (int i = 0; i < labels.length; i++) {
+            labels[i].setText(lines[i]);
+        }
     }
 }
 
