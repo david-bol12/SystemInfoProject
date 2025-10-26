@@ -18,11 +18,13 @@ public class Display {
         // Layout setup
         frame.setLayout(new BorderLayout());
         frame.add(cpuLoadLabel, BorderLayout.CENTER);
+        frame.add(coreCountLabel, BorderLayout.AFTER_LAST_LINE);
+
         // Make frame visible
         frame.setVisible(true);
     }
 
-    public void paint(float cpuLoad) {
+    public void paint() {
         cpuLoadLabel.setText(String.format("CPU Load: %.2f", cpuLoad) + "%");
     }
 
