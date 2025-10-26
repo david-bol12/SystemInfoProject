@@ -3,13 +3,14 @@ import java.awt.*;
 
 public class Display extends Thread {
 
-    private double cpuLoad = 0;
     private int coreCount = 0;
-    JLabel cpuLoadLabel = new JLabel(String.valueOf(cpuLoad), SwingConstants.CENTER);
+    DeviceInfo device;
+    JLabel cpuLoadLabel = new JLabel("0.0", SwingConstants.CENTER);
     JLabel coreCountLabel = new JLabel(String.valueOf(coreCount), SwingConstants.CENTER);
 
-    public Display() {
+    public Display(DeviceInfo device) {
         // Create the main frame (window)
+        this.device = device;
         JFrame frame = new JFrame("System Info App");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 300);
@@ -49,11 +50,7 @@ public class Display extends Thread {
     }
 
     public void paint() {
-        cpuLoadLabel.setText(String.format("CPU Load: %.2f", cpuLoad) + "%");
-    }
-
-    public void setCpuLoad(double cpuLoad) {
-        this.cpuLoad = cpuLoad;
+        cpuLoadLabel.setText(String.format("CPU Load: %.2f", device.getCpuLoad()) + "%");
     }
 
     public void setCoreCount(int coreCount) {
