@@ -51,7 +51,7 @@ public class cpuInfo
 
         int timer = 0;
         while(true) {
-            cpu.read(0);
+            cpu.read(500);
             int idleTime = 0;
             int userTime = 0;
             for (int i = 0; i < cpu.coresPerSocket(); i++) {
