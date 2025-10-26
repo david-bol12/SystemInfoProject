@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class Display {
+public class Display extends Thread {
 
     private double cpuLoad = 0;
     private int coreCount = 0;
@@ -22,6 +22,30 @@ public class Display {
 
         // Make frame visible
         frame.setVisible(true);
+    }
+
+    @Override
+    public void run() {
+        int FPS_SET = 20;
+        double timePerFrame = 1000000000.0 / FPS_SET;
+        long lastFrame = System.nanoTime();
+
+        int frames = 0;
+        long lastCheck = System.currentTimeMillis();
+
+        while (true) {
+            if ((System.nanoTime() - lastFrame) >= timePerFrame) {
+                paint();
+                lastFrame = System.nanoTime();
+                frames++;
+            }
+
+            if (System.currentTimeMillis() - lastCheck >= 1000) {
+                lastCheck = System.currentTimeMillis();
+                System.out.println("FPS: " + frames);
+                frames = 0;
+            }
+        }
     }
 
     public void paint() {

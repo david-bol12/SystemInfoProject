@@ -52,18 +52,11 @@ public class cpuInfo
             System.out.println(getSystemTime(i));
             idleTime += getIdleTime(i);
             busyTime += (getUserTime(i) + getSystemTime(i));
+            // User time = Time spent executing user level code
+            // System time = Time spent executing kernel level code
         }
         double cpuLoad = (double) busyTime / (idleTime + busyTime);
         return cpuLoad * 100;
     }
 
-    public static void showCPU(Display display)
-    {
-        cpuInfo cpu = new cpuInfo();
-        cpu.read(0);
-        while(true) {
-            display.setCpuLoad(cpu.getCpuLoad());
-            display.setCoreCount(cpu.coresPerSocket());
-        }
-    }
 }
