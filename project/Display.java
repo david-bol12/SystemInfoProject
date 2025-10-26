@@ -5,6 +5,7 @@ public class Display extends Thread {
 
     private DeviceInfo device;
     private JFrame frame = new JFrame("System Info App");
+    private JPanel panel;
     private String[][] lines;
     private Body[] bodies;
     private Header[] headers = {
@@ -23,10 +24,12 @@ public class Display extends Thread {
         // Layout setup
 
         this.lines = getLines();
+        this.panel = new JPanel(new GridLayout(lines.length * 2, 1));
 
         this.bodies = new Body[lines.length];
 
-        frame.setLayout(new GridLayout(4, 1));
+        frame.setLayout(new BorderLayout());
+        frame.add(panel, BorderLayout.NORTH);
 
         for (int i = 0; i < headers.length; i++) {
             frame.add(headers[i], BorderLayout.NORTH);
@@ -90,7 +93,6 @@ class Body extends JPanel {
     public Body(String[] lines) {
         super(new GridLayout(lines.length, 1, 10 ,10));
         this.lines = lines;
-        setBackground(Color.blue);
         labels = new JLabel[lines.length];
         for (int i = 0; i < labels.length; i++) {
             labels[i] = new JLabel(lines[i]);
@@ -114,7 +116,6 @@ class Header extends JPanel {
 
     public Header(String title) {
         super(new FlowLayout(FlowLayout.LEFT, 10, 10));
-        setBackground(Color.red);
         label.setText(title);
         label.setFont(new Font("TimesRoman", Font.BOLD, 16));
         add(label);
