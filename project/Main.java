@@ -39,7 +39,7 @@ public class Main extends Thread
 
         while (true) {
             if ((System.nanoTime() - lastFrame) >= timePerFrame) {
-                display.paint();
+                display.paint(cpu);
                 lastFrame = System.nanoTime();
                 frames++;
             }
