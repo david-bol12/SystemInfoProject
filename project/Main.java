@@ -27,7 +27,7 @@ public class Main extends Thread
 
     }
     public void run() {
-        int FPS_SET = 20;
+        int FPS_SET = 2;
         double timePerFrame = 1000000000.0 / FPS_SET;
         long lastFrame = System.nanoTime();
 
