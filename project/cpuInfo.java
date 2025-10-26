@@ -54,8 +54,8 @@ public class cpuInfo extends Thread
             idleTime += this.getIdleTime(i);
             userTime += this.getUserTime(i);
         }
-        this.cpuLoad = (float) (userTime / (idleTime + userTime)) * 100;
-        System.out.println(this.cpuLoad);
+        this.cpuLoad = (float) userTime / (idleTime + userTime);
+        System.out.println(cpuLoad);
     }
 
     public float getCpuLoad() {
