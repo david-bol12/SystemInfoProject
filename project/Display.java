@@ -65,7 +65,7 @@ public class Display extends Thread {
     public void paint() {
         this.lines = getLines();
         for (int i = 0; i < bodies.length; i++) {
-            bodies[i].updateLabels();
+            bodies[i].updateLabels(lines[i]);
         }
     }
 
@@ -99,9 +99,9 @@ class Body extends JPanel {
         }
     }
 
-    public void updateLabels() {
+    public void updateLabels(String[] updatedLines) {
         for (int i = 0; i < labels.length; i++) {
-            labels[i].setText(lines[i]);
+            labels[i].setText(updatedLines[i]);
             labels[i].setFont(new Font("TimesRoman", Font.PLAIN, 12));
             add(labels[i]);
         }
@@ -113,7 +113,7 @@ class Header extends JPanel {
     JLabel label = new JLabel();
 
     public Header(String title) {
-        super(new FlowLayout(FlowLayout.RIGHT, 10, 10));
+        super(new FlowLayout(FlowLayout.LEFT, 10, 10));
         setBackground(Color.red);
         label.setText(title);
         label.setFont(new Font("TimesRoman", Font.BOLD, 16));
