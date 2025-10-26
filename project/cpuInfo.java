@@ -47,15 +47,15 @@ public class cpuInfo extends Thread
     public native int getSystemTime (int core);
 
     public void updateCPULoad() {
-        this.read(250);
+        this.read(500);
         int idleTime = 0;
         int userTime = 0;
         for (int i = 0; i < this.coresPerSocket(); i++) {
             idleTime += this.getIdleTime(i);
             userTime += this.getUserTime(i);
         }
-        this.cpuLoad = (float) userTime / (idleTime + userTime);
-        System.out.println(cpuLoad);
+        this.cpuLoad = (float) (userTime / (idleTime + userTime)) * 100;
+        System.out.println(this.cpuLoad);
     }
 
     public float getCpuLoad() {

@@ -22,8 +22,8 @@ public class Display {
         frame.setVisible(true);
     }
 
-    public void paint(cpuInfo cpu) {
-        cpuLoadLabel.setText(String.format("CPU Load: %.2f", cpu.getCpuLoad()) + "%");
+    public void paint(float cpuLoad) {
+        cpuLoadLabel.setText(String.format("CPU Load: %.2f", cpuLoad) + "%");
     }
 
     public void setCpuLoad(double cpuLoad) {
