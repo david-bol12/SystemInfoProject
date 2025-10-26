@@ -52,7 +52,7 @@ public class cpuInfo
             idleTime += getIdleTime(i);
             userTime += getUserTime(i);
         }
-        return (double) userTime / (idleTime + userTime);
+        return (double) (userTime / (idleTime + userTime)) * 100;
     }
 
     public static void showCPU(Display display)
@@ -60,7 +60,7 @@ public class cpuInfo
         cpuInfo cpu = new cpuInfo();
         cpu.read(0);
         while(true) {
-            display.setCpuLoad(cpu.getCpuLoad() * 100);
+            display.setCpuLoad(cpu.getCpuLoad());
             display.setCoreCount(cpu.coresPerSocket());
         }
     }
