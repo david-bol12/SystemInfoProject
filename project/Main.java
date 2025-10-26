@@ -12,12 +12,13 @@ import java.awt.event.ActionListener;
 public class Main extends Thread
 {
 
+
     // Create a new branch before editing any code in main
     public static void main(String[] args)
     {
+       
         System.out.println("System Info Project");
         System.loadLibrary("sysinfo"); // Loads C++ Library
     }
-
 }
 
