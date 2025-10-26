@@ -31,9 +31,7 @@ public class Display extends Thread {
 
         for (int i = 0; i < labels.length; i++) {
             labels[i] = new JLabel(lines[i]);
-        }
-
-        for (int i = 0; i < labels.length; i++) {
+            labels[i].setFont(new Font("TimesRoman", Font.PLAIN, 12));
             frame.add(labels[i]);
         }
 
