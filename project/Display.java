@@ -1,39 +1,37 @@
 import javax.swing.*;
 import java.awt.*;
-import java.util.Arrays;
 
 public class Display extends Thread {
 
     private DeviceInfo device;
     private JFrame frame = new JFrame("System Info App");
-    private String[] lines;
+    private String[][] lines;
+    private Body[] bodies;
+    private Header[] headers = {
+            new Header("CPU"),
+            new Header("Memory"),
+    };
     private JLabel[] labels;
 
     public Display(DeviceInfo device) {
         this.device = device;
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 300);
+        frame.setSize(600, 450);
         frame.setLocationRelativeTo(null); // Center the window on screen
 
         // Layout setup
 
-        this.lines = new String[] {
-                String.format("CPU Load: %.2f%%", device.getCpuLoad()),
-                String.format("Total CPU Cores: %d", device.coresPerSocket),
-                String.format("Memory Used: %.2fGiB   -   %.2f%%", device.getMemoryUsed(), device.getMemoryPercentUsed())
-        };
+        this.lines = getLines();
 
-        labels = new JLabel[lines.length];
-        System.out.println(Arrays.toString(lines));
+        this.bodies = new Body[lines.length];
 
-        frame.setLayout(new GridLayout(labels.length, 1, 10, 5));
+        frame.setLayout(new BorderLayout());
 
-
-        for (int i = 0; i < labels.length; i++) {
-            labels[i] = new JLabel(lines[i]);
-            labels[i].setFont(new Font("TimesRoman", Font.PLAIN, 12));
-            frame.add(labels[i]);
+        for (int i = 0; i < headers.length; i++) {
+            frame.add(headers[i]);
+            bodies[i] = new Body(lines[i]);
+            frame.add(bodies[i]);
         }
 
         // Make frame visible
@@ -65,14 +63,60 @@ public class Display extends Thread {
     }
 
     public void paint() {
-        this.lines = new String[] {
-                String.format("CPU Load: %.2f%%", device.getCpuLoad()),
-                String.format("Total CPU Cores: %d", device.coresPerSocket),
-                String.format("Memory Used: %.2fGiB   -   %.2f%%", device.getMemoryUsed(), device.getMemoryPercentUsed())
+        this.lines = getLines();
+        for (int i = 0; i < bodies.length; i++) {
+            bodies[i].updateLabels();
+        }
+    }
+
+    public String[][] getLines() {
+        return new String[][]{
+                {
+                        String.format("CPU Load: %.2f%%", device.getCpuLoad()),
+                        String.format("Total CPU Cores: %d", device.coresPerSocket),
+                },
+                {
+                        String.format("Memory Used: %.2fGiB   -   %.2f%%", device.getMemoryUsed(), device.getMemoryPercentUsed())
+                }
         };
+    }
+}
+
+class Body extends JPanel {
+
+    private JLabel[] labels;
+    private String[] lines;
+
+    public Body(String[] lines) {
+        super(new GridLayout(lines.length, 1, 10 ,10));
+        this.lines = lines;
+        labels = new JLabel[lines.length];
+        for (int i = 0; i < labels.length; i++) {
+            labels[i] = new JLabel(lines[i]);
+            labels[i].setFont(new Font("TimesRoman", Font.PLAIN, 12));
+            add(labels[i]);
+        }
+    }
+
+    public void updateLabels() {
         for (int i = 0; i < labels.length; i++) {
             labels[i].setText(lines[i]);
+            labels[i].setFont(new Font("TimesRoman", Font.PLAIN, 12));
+            add(labels[i]);
         }
     }
 }
+
+class Header extends JPanel {
+
+    JLabel label = new JLabel();
+
+    public Header(String title) {
+        super(new FlowLayout(FlowLayout.RIGHT, 10, 10));
+        label.setText(title);
+        label.setFont(new Font("TimesRoman", Font.BOLD, 16));
+        add(label);
+    }
+}
+
 
