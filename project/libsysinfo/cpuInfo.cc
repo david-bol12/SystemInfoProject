@@ -126,10 +126,10 @@ void CPUInfo::_parseStat (char buffer[])
     _havePrevStat[core] = true;
 }
 
-void CPUInfo::read(int seconds)
+void CPUInfo::read(int milliseconds)
 {
-    if (seconds)
-        usleep (seconds * 1000);
+    if (milliseconds)
+        usleep (milliseconds * 1000);
 
     std::array<char, 4096> buffer;
     std::unique_ptr<FILE, decltype(&pclose)> pipe(popen("lscpu -B", "r"), pclose);
