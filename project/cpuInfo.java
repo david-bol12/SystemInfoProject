@@ -64,7 +64,9 @@ public class cpuInfo extends Thread
 
     @Override
     public void run() {
-        this.updateCPULoad();
+        while (true) {
+            this.updateCPULoad();
+        }
     }
 
     public static void showCPU(Display display)
