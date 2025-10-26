@@ -47,12 +47,12 @@ public class cpuInfo
     public double getCpuLoad () {
         read(500);
         int idleTime = 0;
-        int userTime = 0;
+        int busyTime = 0;
         for (int i = 0; i < coresPerSocket(); i++) {
             idleTime += getIdleTime(i);
-            userTime += getUserTime(i);
+            busyTime += (getUserTime(i) + getSystemTime(i));
         }
-        double cpuLoad = (double) userTime / (idleTime + userTime);
+        double cpuLoad = (double) busyTime / (idleTime + busyTime);
         return cpuLoad * 100;
     }
 
