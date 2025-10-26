@@ -66,6 +66,10 @@ public class Display extends Thread {
     }
 
     public void paint() {
+        this.lines = new String[] {
+                String.format("CPU Load: %.2f%%", device.getCpuLoad()),
+                String.format("Total CPU Cores: %d", device.coresPerSocket),
+        };
         for (int i = 0; i < labels.length; i++) {
             labels[i].setText(lines[i]);
         }
