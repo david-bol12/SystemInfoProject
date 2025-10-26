@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.Arrays;
 
 public class Display extends Thread {
 
@@ -16,7 +17,6 @@ public class Display extends Thread {
         frame.setLocationRelativeTo(null); // Center the window on screen
 
         // Layout setup
-        frame.setLayout(new GridLayout(labels.length, 1, 10, 5));
 
         this.lines = new String[] {
                 String.format("CPU Load: %.2f%%", device.getCpuLoad()),
@@ -24,7 +24,10 @@ public class Display extends Thread {
         };
 
         labels = new JLabel[lines.length];
-        System.out.println(lines);
+        System.out.println(Arrays.toString(lines));
+
+        frame.setLayout(new GridLayout(labels.length, 1, 10, 5));
+
 
         for (int i = 0; i < labels.length; i++) {
             labels[i] = new JLabel(lines[i]);
