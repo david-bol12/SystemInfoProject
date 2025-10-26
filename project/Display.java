@@ -21,6 +21,7 @@ public class Display extends Thread {
         this.lines = new String[] {
                 String.format("CPU Load: %.2f%%", device.getCpuLoad()),
                 String.format("Total CPU Cores: %d", device.coresPerSocket),
+                String.format("Memory Used: %.2fGiB   -   %.2f%%", device.getMemoryUsed(), device.getMemoryPercentUsed())
         };
 
         labels = new JLabel[lines.length];
