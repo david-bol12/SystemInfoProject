@@ -9,8 +9,15 @@ public class Display extends Thread {
     private JLabel[] labels;
 
     public Display(DeviceInfo device) {
-        // Create the main frame (window)
         this.device = device;
+
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(400, 300);
+        frame.setLocationRelativeTo(null); // Center the window on screen
+
+        // Layout setup
+        frame.setLayout(new GridLayout(labels.length, 1, 10, 5));
+
         this.lines = new String[] {
                 String.format("CPU Load: %.2f%%", device.getCpuLoad()),
                 String.format("Total CPU Cores: %d", device.coresPerSocket),
@@ -20,14 +27,10 @@ public class Display extends Thread {
 
         for (int i = 0; i < labels.length; i++) {
             labels[i] = new JLabel(lines[i]);
+            frame.add(labels[i]);
         }
 
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 300);
-        frame.setLocationRelativeTo(null); // Center the window on screen
 
-        // Layout setup
-        frame.setLayout(new GridLayout(labels.length, 1, 10, 5));
 
         // Make frame visible
         frame.setVisible(true);
