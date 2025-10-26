@@ -166,8 +166,8 @@ JNIEXPORT void JNICALL Java_cpuInfo_read__ (JNIEnv *env, jobject obj) {
     cpu.read();
 }
 
-JNIEXPORT void JNICALL Java_cpuInfo_read__I (JNIEnv *env, jobject obj, jint seconds) {
-    cpu.read(seconds);
+JNIEXPORT void JNICALL Java_cpuInfo_read__I (JNIEnv *env, jobject obj, jint milliseconds) {
+    cpu.read(milliseconds);
 }
 
 JNIEXPORT jint JNICALL Java_cpuInfo_coresPerSocket (JNIEnv *env, jobject obj) {

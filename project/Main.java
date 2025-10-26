@@ -22,10 +22,13 @@ public class Main extends Thread
         System.loadLibrary("sysinfo"); // Loads C++ Library
         Main thread = new Main();
         thread.start();
+        cpuInfo cpu = new cpuInfo();
+        cpu.start();
         System.out.println("This code is outside of the thread");
         cpuInfo.showCPU(display);
 
     }
+    @Override
     public void run() {
         int FPS_SET = 2;
         double timePerFrame = 1000000000.0 / FPS_SET;

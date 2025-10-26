@@ -4,8 +4,11 @@
  *  Copyright (c) 2024 Mark Burkley (mark.burkley@ul.ie)
  */
 
-public class cpuInfo 
+public class cpuInfo extends Thread
 {
+
+    float cpuLoad = 0f;
+
     // Refresh the current values and counters - call this before other methods
     public native void read (int seconds);
     public native void read ();
@@ -43,17 +46,24 @@ public class cpuInfo
     // that the specified core has been in system mode
     public native int getSystemTime (int core);
 
-    public static double getCPULoad() {
-        cpuInfo cpu = new cpuInfo();
-        cpu.read(0);
+    public void updateCPULoad() {
+        this.read(250);
         int idleTime = 0;
         int userTime = 0;
-        for (int i = 0; i < cpu.coresPerSocket(); i++) {
-            idleTime += cpu.getIdleTime(i);
-            userTime += cpu.getUserTime(i);
+        for (int i = 0; i < this.coresPerSocket(); i++) {
+            idleTime += this.getIdleTime(i);
+            userTime += this.getUserTime(i);
         }
-        double cpuLoad = (double) userTime / (idleTime + userTime);
-        return cpuLoad * 100;
+        this.cpuLoad = (float) userTime / (idleTime + userTime);
+    }
+
+    public float getCpuLoad() {
+        return cpuLoad;
+    }
+
+    @Override
+    public void run() {
+        this.updateCPULoad();
     }
 
     public static void showCPU(Display display)
