@@ -7,8 +7,6 @@
 public class cpuInfo
 {
 
-    float cpuLoad = 0f;
-
     // Refresh the current values and counters - call this before other methods
     public native void read (int seconds);
     public native void read ();
@@ -45,21 +43,6 @@ public class cpuInfo
     // Return the time in "jiffies" or 1/100ths of a second 
     // that the specified core has been in system mode
     public native int getSystemTime (int core);
-
-    public void updateCPULoad() {
-        this.read(500);
-        int idleTime = 0;
-        int userTime = 0;
-        for (int i = 0; i < this.coresPerSocket(); i++) {
-            idleTime += this.getIdleTime(i);
-            userTime += this.getUserTime(i);
-        }
-        this.cpuLoad = (float) userTime / (idleTime + userTime);
-    }
-
-    public float getCpuLoad() {
-        return cpuLoad;
-    }
 
     public static void showCPU(Display display)
     {
