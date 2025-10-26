@@ -22,8 +22,6 @@ public class Main extends Thread
         System.loadLibrary("sysinfo"); // Loads C++ Library
         Main thread = new Main();
         thread.start();
-        cpuInfo cpu = new cpuInfo();
-        cpu.start();
         System.out.println("This code is outside of the thread");
         cpuInfo.showCPU(display);
 

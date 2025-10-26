@@ -4,7 +4,7 @@
  *  Copyright (c) 2024 Mark Burkley (mark.burkley@ul.ie)
  */
 
-public class cpuInfo extends Thread
+public class cpuInfo
 {
 
     float cpuLoad = 0f;
@@ -55,18 +55,10 @@ public class cpuInfo extends Thread
             userTime += this.getUserTime(i);
         }
         this.cpuLoad = (float) userTime / (idleTime + userTime);
-        System.out.println(cpuLoad);
     }
 
     public float getCpuLoad() {
         return cpuLoad;
-    }
-
-    @Override
-    public void run() {
-        while (true) {
-            this.updateCPULoad();
-        }
     }
 
     public static void showCPU(Display display)
