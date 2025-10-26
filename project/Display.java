@@ -26,7 +26,7 @@ public class Display extends Thread {
 
         this.bodies = new Body[lines.length];
 
-        frame.setLayout(new BorderLayout());
+        frame.setLayout(new GridLayout(4, 1));
 
         for (int i = 0; i < headers.length; i++) {
             frame.add(headers[i], BorderLayout.NORTH);
