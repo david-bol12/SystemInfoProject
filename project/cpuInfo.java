@@ -52,7 +52,8 @@ public class cpuInfo
             idleTime += getIdleTime(i);
             userTime += getUserTime(i);
         }
-        return (double) (userTime / (idleTime + userTime)) * 100;
+        double cpuLoad = (double) userTime / (idleTime + userTime);
+        return cpuLoad * 100;
     }
 
     public static void showCPU(Display display)
