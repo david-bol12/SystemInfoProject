@@ -32,9 +32,9 @@ public class Display extends Thread {
         frame.add(panel, BorderLayout.NORTH);
 
         for (int i = 0; i < headers.length; i++) {
-            frame.add(headers[i], BorderLayout.NORTH);
+            panel.add(headers[i], BorderLayout.NORTH);
             bodies[i] = new Body(lines[i]);
-            frame.add(bodies[i], BorderLayout.NORTH);
+            panel.add(bodies[i], BorderLayout.NORTH);
         }
 
         // Make frame visible
