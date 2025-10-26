@@ -24,13 +24,15 @@ public class Display extends Thread {
         };
 
         labels = new JLabel[lines.length];
+        System.out.println(lines);
 
         for (int i = 0; i < labels.length; i++) {
             labels[i] = new JLabel(lines[i]);
-            frame.add(labels[i]);
         }
 
-
+        for (int i = 0; i < labels.length; i++) {
+            frame.add(labels[i]);
+        }
 
         // Make frame visible
         frame.setVisible(true);
