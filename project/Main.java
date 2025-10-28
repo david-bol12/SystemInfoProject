@@ -12,8 +12,8 @@ public class Main {
 
 	DevReader d1 = new DevReader();
 
-	d1.devReader();
 	d1. getVendorIDs();
+	d1.getDevices();
         
 
 
