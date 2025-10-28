@@ -85,6 +85,30 @@ class Disk
         }
         return disks;
     }
+
+    public static double totalDiskSpace(Disk[] disks) {
+        double space = 0.0;
+        for(Disk disk : disks) {
+            space += disk.totalGiB;
+        }
+        return space;
+    }
+
+    public static double totalDiskUsed(Disk[] disks) {
+        double usedSpace = 0.0;
+        for (Disk disk : disks) {
+            usedSpace += disk.usedGiB;
+        }
+        return usedSpace;
+    }
+
+    public static double totalDiskUsedPercentage(Disk[] disks) {
+        double usedSpacePercentage = 0.0;
+        for (Disk disk : disks) {
+            usedSpacePercentage += disk.percentUsed;
+        }
+        return usedSpacePercentage;
+    }
 }
 
 public class diskInfo 

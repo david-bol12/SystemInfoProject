@@ -10,7 +10,8 @@ public class Display extends Thread {
     private Tab[] tabs;
     private String[] tabTitles = new String[] {
             "General",
-            "CPU"
+            "CPU",
+            "Memory",
     };
     private JLabel[] labels;
 
@@ -74,26 +75,51 @@ public class Display extends Thread {
 
     public String[] getLines() {
         return new String[] {
+                //General
                 String.format("<html>" +
-                        "CPU Load: %.2f%% <br>" +
-                        "Total CPU Cores: %d <br>" +
-                        "Used Memory: %.2f   -   %.2f%% <br>" +
-                        "" +
-                        "</html>",
+                            "CPU Load: %.2f%% <br>" +
+                            "Total CPU Cores: %d <br>" +
+                            "Used Memory: %.2f   -   %.2f%% <br>" +
+                            "" +
+                            "</html>",
                         device.getCpuLoad(),
                         device.socketCount,
                         device.getMemoryUsed(),
                         device.getMemoryPercentUsed()
                         ),
+                //CPU
                 String.format("<html>" +
-                                "CPU Load: %.2f%% <br>" +
-                                "Total CPU Cores: %d <br>" +
-                                "" +
-                                "" +
+                            "<b>CPU</b>" +
+                            "%s" +
+                            "CPU Load: %.2f%% <br>" +
+                            "Total CPU Cores: %d <br>" +
+                            "L1 Instruction Cache: %d <br>" +
+                            "L1 Data Cache: %d <br>" +
+                            "L2 Cache: %d <br>" +
+                            "L3 Cache: %d <br>" +
                                 "</html>",
+                        device.cpuModel,
                         device.getCpuLoad(),
-                        device.socketCount
+                        device.socketCount,
+                        device.l1dCacheSize,
+                        device.l1iCacheSize,
+                        device.l2CacheSize,
+                        device.l3CacheSize
                 ),
+                //Memory
+                String.format("<html>" +
+                        "Total Memory: %.2f" +
+                        "Memory Used: %.2f  -  %.2f%%" +
+                        "Memory Free: %.2f  -  %.2f%%" +
+                        "Memory Status: %s" +
+                        "</html>",
+                        device.memoryTotal,
+                        device.getMemoryUsed(),
+                        device.getMemoryPercentUsed(),
+                        device.getMemoryFree(),
+                        device.getMemoryPercentFree(),
+                        device.getMemoryStatus()
+                        )
         };
     }
 }
@@ -130,7 +156,7 @@ class Body extends JPanel {
         super(new BorderLayout());
         this.text = text;
         label = new JLabel(text);
-        label.setFont(new Font("TimesRoman", Font.PLAIN, 12));
+        label.setFont(new Font("TimesRoman", Font.PLAIN, 16));
         add(label, BorderLayout.NORTH);
     }
 
