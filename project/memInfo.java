@@ -72,6 +72,19 @@ public class memInfo
                 return "Healthy - Sufficient Memory";
             }
         }
+
+    public static void showMem()
+    {
+        memInfo mem = new memInfo();
+        mem.read();
+
+        System.out.println(" Memory Information ");
+        System.out.printf("Total: %.2f GiB or %.2f GB%n", mem.getTotalGiB(), mem.getTotalGB());
+        System.out.printf("Used:  %.2f GiB or %.2f GB (%.1f%%)%n", mem.getUsedGiB(), mem.getUsedGB(), mem.getPercentUsed());
+        System.out.printf("Free:  %.2f GiB or %.2f GB (%.1f%%)%n", mem.getFreeGiB(), mem.getFreeGB(), mem.getPercentFree());
+        System.out.printf("Status: %s%n", mem.getMemoryStatus());
+
+    }
 }
 
 

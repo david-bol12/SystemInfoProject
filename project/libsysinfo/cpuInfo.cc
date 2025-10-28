@@ -126,10 +126,10 @@ void CPUInfo::_parseStat (char buffer[])
     _havePrevStat[core] = true;
 }
 
-void CPUInfo::read(int seconds)
+void CPUInfo::read(int milliseconds)
 {
-    if (seconds)
-        sleep (seconds);
+    if (milliseconds)
+        usleep (milliseconds * 1000);
 
     std::array<char, 4096> buffer;
     std::unique_ptr<FILE, decltype(&pclose)> pipe(popen("lscpu -B", "r"), pclose);
@@ -166,8 +166,8 @@ JNIEXPORT void JNICALL Java_cpuInfo_read__ (JNIEnv *env, jobject obj) {
     cpu.read();
 }
 
-JNIEXPORT void JNICALL Java_cpuInfo_read__I (JNIEnv *env, jobject obj, jint seconds) {
-    cpu.read(seconds);
+JNIEXPORT void JNICALL Java_cpuInfo_read__I (JNIEnv *env, jobject obj, jint milliseconds) {
+    cpu.read(milliseconds);
 }
 
 JNIEXPORT jint JNICALL Java_cpuInfo_coresPerSocket (JNIEnv *env, jobject obj) {
