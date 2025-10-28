@@ -173,7 +173,7 @@ public class diskInfo
         } else if (name.startsWith("loop")) {
             return "Loopback";
         } else if (name.startsWith("tmp")) {
-            return "Loopback";
+            return "RAM Disk (Temporary Filesytem)";
         } else if (name.startsWith("/dev/sda")) {
             return "Virtual SATA Disk";
         } else { 
