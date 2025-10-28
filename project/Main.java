@@ -10,22 +10,23 @@ public class Main
 {
 public static void showDisk()
     {
-        diskInfo disk = new diskInfo();
-        disk.read();
-        
-        for (int i = 0; i < disk.diskCount(); i++) {
-            System.out.printf("Disk: %s, Type: %s, Total: %.2f GiB, Used: %.2f GiB (%.1f%%), Current Health: %s%n",
-                    disk.getName(i),
-                    disk.getType(i),
-                    disk.getTotalGiB(i),
-                    disk.getUsedGiB(i),
-                    disk.getPercentUsed(i),
-                    disk.healthStatus(i)
-                    );
+        Disk[] disks = Disk.getDisks();
+        for (Disk d : disks) {
+            System.out.printf("Disk: %s, Type: %s, Total: %.2f GiB (%.2f GB), Used: %.2f GiB (%.2f GB) (%.1f%%), Current Health: %s%n",
+                d.getName(),
+                d.getType(),
+                d.getTotalGiB(),
+                d.getTotalGB(),
+                d.getUsedGiB(),
+                d.getUsedGB(),
+                d.getPercentUsed(),
+                d.getHealthStatus()
+                );
         }
     }
+    
     public static void showMem()
- {
+  {
         memInfo mem = new memInfo();
         mem.read();
 

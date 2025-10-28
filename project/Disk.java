@@ -3,8 +3,69 @@
  *
  *  Copyright (c) 2024 Mark Burkley (mark.burkley@ul.ie)
  */
+public class Disk {
 
-public class diskInfo 
+    private String name = "";
+    private String type = "";
+    private double totalGiB = 0.0;
+    private double totalGB = 0.0;
+    private double usedGiB = 0.0;
+    private double usedGB = 0.0;
+    private double percentUsed = 0.0;
+    private String healthStatus = "";
+
+    public String getName() {
+        return name;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public double getTotalGiB() {
+        return totalGiB;
+    }
+
+    public double getTotalGB() {
+        return totalGB;
+    }
+
+    public double getUsedGiB() {
+        return usedGiB;
+    }
+
+    public double getUsedGB() {
+        return usedGB;
+    }
+
+    public double getPercentUsed() {
+        return percentUsed;
+    }
+    
+    public String getHealthStatus() {
+        return healthStatus;
+    }
+
+    public static Disk[] getDisks()
+    {
+        diskInfo disk = new diskInfo();
+        disk.read();
+
+        Disk[] disks = new Disk[disk.diskCount()];
+        for (int i = 0; i < disk.diskCount(); i++) {
+            Disk d = new Disk();
+            d.name = disk.getName(i);
+            d.type = disk.getType(i);
+            d.totalGiB = disk.getTotalGiB(i);
+            d.usedGiB = disk.getUsedGiB(i);
+            d.percentUsed = disk.getPercentUsed(i);
+            d.healthStatus = disk.healthStatus(i);
+            disks[i] = d; 
+        }
+        return disks;
+    }
+}
+class diskInfo 
 {
     // Refresh the current values and counters - call this before other methods
     public native void read ();
