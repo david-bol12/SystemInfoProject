@@ -5,14 +5,17 @@
  */
 public class Main {
  public static void main(String[] args) {
-    
-         
-    
+ System.loadLibrary("sysinfo"); // Loads C++ Library
+
         System.out.println("System Info Project");
-        System.loadLibrary("sysinfo"); // Loads C++ Library
         System.out.println("In bus branch");
 
-        usbInfo.showUSB();
+	DevReader d1 = new DevReader();
+
+	d1.devReader();
+	d1. getVendorIDs();
+        
+
 
  }
 }

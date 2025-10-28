@@ -2,8 +2,8 @@ import java.util.AbstractMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-
-public class DevReader 
+import java.util.ArrayList;
+public class DevReader
 {
     // Refresh the current values and counters - call this before other methods
     public native void read ();
@@ -20,15 +20,13 @@ public class DevReader
     // Return the product ID of a USB device
     public native int productID (int bus, int device);
 
-    static Set<Map.Entry<Integer, Integer>> pairs = new HashSet<>();
+   static Set<Map.Entry<Integer, Integer>> pairs = new HashSet<>();
 
-    public static void showUSB()
+    ArrayList<Integer> ven = new ArrayList<Integer>();
+
+    public static void devReader()
     {
-        usbInfo usb = new usbInfo();
-        usb.read();
-        System.out.println("\nThis machine has "+ usb.busCount()+" USB buses ");
-
-            for (int i = 1; i <= usb.busCount(); i++) {
+          for (int i = 1; i <= usb.busCount(); i++) {
         int validDeviceCount = 0; // Counter for valid devices on this bus
 
         // Iterate through all devices on the bus
@@ -36,21 +34,33 @@ public class DevReader
             int vendor = usb.vendorID(i, j);
             int product = usb.productID(i, j);
 
-            if (vendor != 0 && product != 0) {
+            if (vendor != 0 && product != 0) {		//replaces key and value with vendor and product
                 pairs.add(new AbstractMap.SimpleEntry<>(vendor, product));
                 validDeviceCount++;
-               System.out.println("Bus " + i + " device " + validDeviceCount +
+		ven.add(vendor);
+		System.out.println(vendor);
+
+
+        /*       System.out.println("Bus " + i + " device " + validDeviceCount +
                         " has vendor " + String.format("0x%04X", vendor) +
-                        " and product " + String.format("0x%04X", product));
+                        " and product " + String.format("0x%04X", product)); */
             }
 	}
 	}
 
+	 System.out.println();
     for (Map.Entry<Integer, Integer> pair : pairs) {
-            System.out.println(String.format("0x%04X", pair.getKey()) + ", " + String.format("0x%04X", pair.getValue()));
+            System.out.println(pair.getKey() + ", " + pair.getValue());
+	}
+ }
 
-        }
+ public ArrayList<Integer> getVendorIDs() {
+        return new ArrayList<>(ven);
     }
+/*static ArrayList<Integer>  getVen()
+{ ArrayList<Integer> ven = new ArrayList<Integer>();
+ ven.add(vendor);
+ return ven;
+} */
 }
-
 
