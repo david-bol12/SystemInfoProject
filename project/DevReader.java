@@ -1,16 +1,9 @@
-/*
- *  USB information class for JNI
- *
- *  Copyright (c) 2024 Mark Burkley (mark.burkley@ul.ie)
- */
-
 import java.util.AbstractMap;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-
-public class usbInfo 
+import java.util.ArrayList;
+public class DevReader
 {
     // Refresh the current values and counters - call this before other methods
     public native void read ();
@@ -27,8 +20,7 @@ public class usbInfo
     // Return the product ID of a USB device
     public native int productID (int bus, int device);
 
-    static Set<Map.Entry<Integer, Integer>> pairs = new HashSet<>();
-    public Set<Map.Entry<Integer, Integer>> getVendorIDs() {
+ public Set<Map.Entry<Integer, Integer>> getVendorIDs() {
     Set<Map.Entry<Integer, Integer>> pairs = new HashSet<>();
     for (int i = 1; i <= busCount(); i++) {
         // Iterate through all devices on the bus
@@ -54,7 +46,7 @@ return pairs;
                         " and product " + String.format("0x%04X", product)); */
 }
 
-public ArrayList getDevices() {
+    public ArrayList getDevices() {
         Set<Map.Entry<Integer, Integer>> pairs = getVendorIDs();
         ArrayList <String> devices = new ArrayList<String>();
             for(int i = 1; i <= busCount(); i++) {
@@ -66,9 +58,7 @@ public ArrayList getDevices() {
 
                             if (vendor != 0 && product != 0) {
                                 validDeviceCount++;
-                                devices.add("Bus " + i + " device " + validDeviceCount +
-                                    " has vendor " + String.format("0x%04X", vendor) +
-                                    " and product " + String.format("0x%04X", product));
+                                devices.add((String.format("0x%04X", vendor) + String.format("0x%04X", product)));
                             }    
 
                               /*    System.out.println("Bus " + i + " device " + validDeviceCount +
@@ -86,4 +76,6 @@ public ArrayList getDevices() {
 
     return devices;
     }
-}
+    
+} // This shopuld be here
+
