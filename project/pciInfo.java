@@ -56,9 +56,9 @@ public class pciInfo
                             System.out.println("Bus "+i+" device "+j+" function "+k+
                                     " has vendor "+String.format("0x%04X", pci.vendorID(i,j,k))+
                                     " and product "+String.format("0x%04X", pci.productID(i,j,k)));
-                            busDeviceFunction.add(-1,i);
-                                    busDeviceFunction.add(-1,j);
-                                    busDeviceFunction.add(-1,k);
+                            busDeviceFunction.add(i);
+                                    busDeviceFunction.add(j);
+                                    busDeviceFunction.add(k);
                                     System.out.println(busDeviceFunction);
 
                                    /*
