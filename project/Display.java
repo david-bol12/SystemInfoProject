@@ -75,9 +75,9 @@ public class Display extends Thread {
     public String[] getLines() {
         return new String[] {
                 String.format("<html>" +
-                        "CPU Load: %.2f%% <b>" +
-                        "Total CPU Cores: %d <b>" +
-                        "Used Memory: %.2f   -   %.2f%% <b>" +
+                        "CPU Load: %.2f%% <br>" +
+                        "Total CPU Cores: %d <br>" +
+                        "Used Memory: %.2f   -   %.2f%% <br>" +
                         "" +
                         "</html>",
                         device.getCpuLoad(),
@@ -86,8 +86,8 @@ public class Display extends Thread {
                         device.getMemoryPercentUsed()
                         ),
                 String.format("<html>" +
-                                "CPU Load: %.2f%% <b>" +
-                                "Total CPU Cores: %d <b>" +
+                                "CPU Load: %.2f%% <br>" +
+                                "Total CPU Cores: %d <br>" +
                                 "" +
                                 "" +
                                 "</html>",
