@@ -4,6 +4,7 @@
  *  Copyright (c) 2024 Mark Burkley (mark.burkley@ul.ie)
  */
 //import org.json.simple.JSONObject;
+import java.util.HashMap;
 import java.util.ArrayList;
 public class pciInfo 
 {
@@ -30,6 +31,24 @@ public class pciInfo
 
     public static void showPCI()
     {
+        HashMap<Integer, String> vendorIDs = new HashMap<>();
+        vendorIDs.put(1002,"AMD");
+        vendorIDs.put(8086,"Intel");
+        vendorIDs.put(6900,"RedHat");
+        vendorIDs.put(4318,"Nvidia");
+        vendorIDs.put(4332,"Realtek");
+        vendorIDs.put(6635,"Qualcomm");
+        vendorIDs.put(1044,"Dell");
+        vendorIDs.put(2605,"Matrox");
+        vendorIDs.put(58340,"Broadcom");
+        vendorIDs.put(4155,"Apple");
+        vendorIDs.put(7196,"Corsair");
+
+        HashMap<Integer, String> productIDs = new HashMap<>();
+
+
+
+
         pciInfo pci = new pciInfo();
         //JSONObject file = new JSONObject();
         ArrayList<Integer> busDeviceFunction = new ArrayList<>();
@@ -58,6 +77,7 @@ public class pciInfo
                                     " and product "+String.format("0x%04X", pci.productID(i,j,k)));
 
                             busDeviceFunction.add(pci.vendorID(i,j,k));
+                            System.out.println(vendorIDs.get(pci.vendorID(i,j,k)));
                             busDeviceFunction.add(pci.productID(i,j,k));
                             System.out.println(busDeviceFunction);
 
