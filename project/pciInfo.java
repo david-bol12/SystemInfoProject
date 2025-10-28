@@ -3,7 +3,7 @@
  *
  *  Copyright (c) 2024 Mark Burkley (mark.burkley@ul.ie)
  */
-import org.json.simple.JSONObject;
+//import org.json.simple.JSONObject;
 import java.util.ArrayList;
 public class pciInfo 
 {
@@ -31,7 +31,7 @@ public class pciInfo
     public static void showPCI()
     {
         pciInfo pci = new pciInfo();
-        JSONObject file = new JSONObject();
+        //JSONObject file = new JSONObject();
         ArrayList<Integer> busDeviceFunction = new ArrayList<>();
         pci.read();
 
