@@ -3,7 +3,8 @@
  *
  *  Copyright (c) 2024 Mark Burkley (mark.burkley@ul.ie)
  */
-public class Disk {
+class Disk 
+{
 
     private String name = "";
     private String type = "";
@@ -85,7 +86,8 @@ public class Disk {
         return disks;
     }
 }
-class diskInfo 
+
+public class diskInfo 
 {
     // Refresh the current values and counters - call this before other methods
     public native void read ();
