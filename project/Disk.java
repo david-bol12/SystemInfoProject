@@ -11,6 +11,9 @@ public class Disk {
     private double totalGB = 0.0;
     private double usedGiB = 0.0;
     private double usedGB = 0.0;
+    private double freeGiB = 0.0;
+    private double freeGB = 0.0;
+    private double percentFree = 0.0;
     private double percentUsed = 0.0;
     private String healthStatus = "";
 
@@ -41,9 +44,21 @@ public class Disk {
     public double getPercentUsed() {
         return percentUsed;
     }
-    
+
     public String getHealthStatus() {
         return healthStatus;
+    }
+
+    public double getFreeGiB() {
+        return freeGiB;
+    }
+
+    public double getFreeGB() {
+        return freeGB;
+    }
+
+    public double getPercentFree() {
+        return percentFree;
     }
 
     public static Disk[] getDisks()
@@ -57,8 +72,13 @@ public class Disk {
             d.name = disk.getName(i);
             d.type = disk.getType(i);
             d.totalGiB = disk.getTotalGiB(i);
+            d.totalGB = disk.getTotalGB(i);
+            d.usedGB = disk.getUsedGB(i);
             d.usedGiB = disk.getUsedGiB(i);
             d.percentUsed = disk.getPercentUsed(i);
+            d.freeGiB = disk.getFreeGiB(i);
+            d.freeGB = d.totalGB - d.usedGB;
+            d.percentFree = disk.getPercentFree(i);
             d.healthStatus = disk.healthStatus(i);
             disks[i] = d; 
         }
@@ -86,12 +106,12 @@ class diskInfo
     }  
 
     public double getPercentFree(int disk) {
-    double total = getTotal(disk);
-    double available = getAvailable(disk);
-    if (total == 0) {
-        return 0;
-    }
-    return (available / total) * 100;
+        double total = getTotal(disk);
+        double available = getAvailable(disk);
+        if (total == 0) {
+            return 0;
+        }
+        return (available / total) * 100;
     }
 
     public double getFreeGiB(int disk) {
@@ -111,7 +131,6 @@ class diskInfo
         double totalGB = total / (1000 * 1000 );
         return totalGB;
     }
-
 
     public double getUsedGiB(int disk) {
         double used = getUsed(disk);
@@ -151,12 +170,14 @@ class diskInfo
             return "Optical";
         } else if (name.startsWith("loop")) {
             return "Loopback";
+        } else if (name.startsWith("tmp")) {
+            return "Loopback";
+        } else if (name.startsWith("/dev/sda")) {
+            return "Virtual SATA Disk";
         } else { 
             return "Unknown";
         }
     } 
-        
-
 }
 
 

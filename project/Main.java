@@ -12,7 +12,7 @@ public static void showDisk()
     {
         Disk[] disks = Disk.getDisks();
         for (Disk d : disks) {
-            System.out.printf("Disk: %s, Type: %s, Total: %.2f GiB (%.2f GB), Used: %.2f GiB (%.2f GB) (%.1f%%), Current Health: %s%n",
+            System.out.printf("Disk: %s, Type: %s, Total Memory: %.2f GiB (%.2f GB), Used Memory: %.2f GiB (%.2f GB) (%.1f%%), Total Free: %.2f GiB (%.2f GB) (%.1f%%) Current Health: %s%n",
                 d.getName(),
                 d.getType(),
                 d.getTotalGiB(),
@@ -20,6 +20,9 @@ public static void showDisk()
                 d.getUsedGiB(),
                 d.getUsedGB(),
                 d.getPercentUsed(),
+                d.getFreeGiB(),
+                d.getFreeGB(),
+                d.getPercentFree(),
                 d.getHealthStatus()
                 );
         }
