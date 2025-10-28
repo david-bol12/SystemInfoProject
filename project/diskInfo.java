@@ -3,6 +3,89 @@
  *
  *  Copyright (c) 2024 Mark Burkley (mark.burkley@ul.ie)
  */
+class Disk 
+{
+
+    private String name = "";
+    private String type = "";
+    private double totalGiB = 0.0;
+    private double totalGB = 0.0;
+    private double usedGiB = 0.0;
+    private double usedGB = 0.0;
+    private double freeGiB = 0.0;
+    private double freeGB = 0.0;
+    private double percentFree = 0.0;
+    private double percentUsed = 0.0;
+    private String healthStatus = "";
+
+    public String getName() {
+        return name;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public double getTotalGiB() {
+        return totalGiB;
+    }
+
+    public double getTotalGB() {
+        return totalGB;
+    }
+
+    public double getUsedGiB() {
+        return usedGiB;
+    }
+
+    public double getUsedGB() {
+        return usedGB;
+    }
+
+    public double getPercentUsed() {
+        return percentUsed;
+    }
+
+    public String getHealthStatus() {
+        return healthStatus;
+    }
+
+    public double getFreeGiB() {
+        return freeGiB;
+    }
+
+    public double getFreeGB() {
+        return freeGB;
+    }
+
+    public double getPercentFree() {
+        return percentFree;
+    }
+
+    public static Disk[] getDisks()
+    {
+        diskInfo disk = new diskInfo();
+        disk.read();
+
+        Disk[] disks = new Disk[disk.diskCount()];
+        for (int i = 0; i < disk.diskCount(); i++) {
+            Disk d = new Disk();
+            d.name = disk.getName(i);
+            d.type = disk.getType(i);
+            d.totalGiB = disk.getTotalGiB(i);
+            d.totalGB = disk.getTotalGB(i);
+            d.usedGB = disk.getUsedGB(i);
+            d.usedGiB = disk.getUsedGiB(i);
+            d.percentUsed = disk.getPercentUsed(i);
+            d.freeGiB = disk.getFreeGiB(i);
+            d.freeGB = d.totalGB - d.usedGB;
+            d.percentFree = disk.getPercentFree(i);
+            d.healthStatus = disk.healthStatus(i);
+            disks[i] = d; 
+        }
+        return disks;
+    }
+}
 
 public class diskInfo 
 {
@@ -42,12 +125,12 @@ public class diskInfo
     }  
 
     public double getPercentFree(int disk) {
-    double total = getTotal(disk);
-    double available = getAvailable(disk);
-    if (total == 0) {
-        return 0;
-    }
-    return (available / total) * 100;
+        double total = getTotal(disk);
+        double available = getAvailable(disk);
+        if (total == 0) {
+            return 0;
+        }
+        return (available / total) * 100;
     }
 
     public double getFreeGiB(int disk) {
@@ -67,7 +150,6 @@ public class diskInfo
         double totalGB = total / (1000 * 1000 );
         return totalGB;
     }
-
 
     public double getUsedGiB(int disk) {
         double used = getUsed(disk);
@@ -107,12 +189,14 @@ public class diskInfo
             return "Optical";
         } else if (name.startsWith("loop")) {
             return "Loopback";
+        } else if (name.startsWith("tmp")) {
+            return "RAM Disk (Temporary Filesytem)";
+        } else if (name.startsWith("/dev/sda")) {
+            return "Virtual SATA Disk";
         } else { 
             return "Unknown";
         }
     } 
-        
-
 }
 
 
