@@ -5,12 +5,12 @@ public class Display extends Thread {
 
     private DeviceInfo device;
     private JFrame frame = new JFrame("System Info App");
-    private JPanel panel;
-    private String[][] lines;
-    private Body[] bodies;
-    private Header[] headers = {
-            new Header("CPU"),
-            new Header("Memory"),
+    private JTabbedPane tabbedPane;
+    private String[] lines;
+    private Tab[] tabs;
+    private String[] tabTitles = new String[] {
+            "General",
+            "CPU",
     };
     private JLabel[] labels;
 
@@ -24,17 +24,15 @@ public class Display extends Thread {
         // Layout setup
 
         this.lines = getLines();
-        this.panel = new JPanel(new GridLayout(lines.length * 2, 1));
+        this.tabs = new Tab[tabTitles.length];
 
-        this.bodies = new Body[lines.length];
 
         frame.setLayout(new BorderLayout());
-        frame.add(panel, BorderLayout.NORTH);
+        frame.add(tabbedPane, BorderLayout.CENTER);
 
-        for (int i = 0; i < headers.length; i++) {
-            panel.add(headers[i], BorderLayout.NORTH);
-            bodies[i] = new Body(lines[i]);
-            panel.add(bodies[i], BorderLayout.NORTH);
+        for (int i = 0; i < tabTitles.length; i++) {
+            this.tabs[i] = new Tab(tabTitles[i], new Body(lines[i]));
+            tabbedPane.add(tabs[i].getTitle(), tabs[i].getBody());
         }
 
         // Make frame visible
@@ -67,58 +65,63 @@ public class Display extends Thread {
 
     public void paint() {
         this.lines = getLines();
-        for (int i = 0; i < bodies.length; i++) {
-            bodies[i].updateLabels(lines[i]);
+        for (int i = 0; i < tabs.length; i++) {
+            tabs[i].updateLabels(lines[i]);
         }
     }
 
-    public String[][] getLines() {
-        return new String[][]{
-                {
-                        String.format("CPU Load: %.2f%%", device.getCpuLoad()),
-                        String.format("Total CPU Cores: %d", device.coresPerSocket),
-                },
-                {
-                        String.format("Memory Used: %.2fGiB   -   %.2f%%", device.getMemoryUsed(), device.getMemoryPercentUsed())
-                }
+    public String[] getLines() {
+        return new String[] {
+                String.format("<html>" +
+                        "CPU Load: %.2f%%" +
+                        "Total CPU Cores: %d" +
+                        "" +
+                        "" +
+                        "</html>",
+                        device.getCpuLoad(),
+                        device.socketCount
+                        )
         };
+    }
+}
+
+class Tab {
+
+    private String title;
+    private Body body;
+
+    public Tab(String title, Body body) {
+        this.title = title;
+        this.body = body;
+    }
+
+    public void updateLabels(String text) {
+        body.updateLabels(text);
+    }
+
+    public Body getBody() {
+        return body;
+    }
+
+    public String getTitle() {
+        return title;
     }
 }
 
 class Body extends JPanel {
 
-    private JLabel[] labels;
-    private String[] lines;
+    private JLabel label;
+    private String text;
 
-    public Body(String[] lines) {
-        super(new GridLayout(lines.length, 1, 10 ,10));
-        this.lines = lines;
-        labels = new JLabel[lines.length];
-        for (int i = 0; i < labels.length; i++) {
-            labels[i] = new JLabel(lines[i]);
-            labels[i].setFont(new Font("TimesRoman", Font.PLAIN, 12));
-            add(labels[i]);
-        }
+    public Body(String text) {
+        super(new GridLayout(1, 1, 10 ,10));
+        this.text = text;
+        label = new JLabel(text);
+        label.setFont(new Font("TimesRoman", Font.PLAIN, 12));
     }
 
-    public void updateLabels(String[] updatedLines) {
-        for (int i = 0; i < labels.length; i++) {
-            labels[i].setText(updatedLines[i]);
-            labels[i].setFont(new Font("TimesRoman", Font.PLAIN, 12));
-            add(labels[i]);
-        }
-    }
-}
-
-class Header extends JPanel {
-
-    JLabel label = new JLabel();
-
-    public Header(String title) {
-        super(new FlowLayout(FlowLayout.LEFT, 10, 10));
-        label.setText(title);
-        label.setFont(new Font("TimesRoman", Font.BOLD, 16));
-        add(label);
+    public void updateLabels(String updatedLine) {
+        label.setText(updatedLine);
     }
 }
 
