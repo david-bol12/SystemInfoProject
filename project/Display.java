@@ -82,7 +82,16 @@ public class Display extends Thread {
                         "</html>",
                         device.getCpuLoad(),
                         device.socketCount
-                        )
+                        ),
+                String.format("<html>" +
+                                "CPU Load: %.2f%%" +
+                                "Total CPU Cores: %d" +
+                                "" +
+                                "" +
+                                "</html>",
+                        device.getCpuLoad(),
+                        device.socketCount
+                ),
         };
     }
 }
