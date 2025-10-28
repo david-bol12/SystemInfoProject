@@ -26,6 +26,8 @@ public class Display extends Thread {
         this.lines = getLines();
         this.tabs = new Tab[tabTitles.length];
 
+        this.tabbedPane = new JTabbedPane();
+
 
         frame.setLayout(new BorderLayout());
         frame.add(tabbedPane, BorderLayout.CENTER);
