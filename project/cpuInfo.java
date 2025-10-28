@@ -45,11 +45,9 @@ public class cpuInfo
     public native int getSystemTime (int core);
 
     public double getCpuLoad () {
-        read(500);
         int idleTime = 0;
         int busyTime = 0;
         for (int i = 0; i < coresPerSocket(); i++) {
-            System.out.println(getSystemTime(i));
             idleTime += getIdleTime(i);
             busyTime += (getUserTime(i) + getSystemTime(i));
             // User time = Time spent executing user level code
