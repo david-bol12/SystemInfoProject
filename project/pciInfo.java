@@ -3,7 +3,8 @@
  *
  *  Copyright (c) 2024 Mark Burkley (mark.burkley@ul.ie)
  */
-
+import org.json.simple.JSONObject;
+import java.util.ArrayList;
 public class pciInfo 
 {
     // Refresh the current values and counters - call this before other methods
@@ -30,6 +31,8 @@ public class pciInfo
     public static void showPCI()
     {
         pciInfo pci = new pciInfo();
+        JSONObject file = new JSONObject();
+        ArrayList<Integer> busDeviceFunction = new ArrayList<>();
         pci.read();
 
         System.out.println("\nThis machine has "+
@@ -53,6 +56,14 @@ public class pciInfo
                             System.out.println("Bus "+i+" device "+j+" function "+k+
                                     " has vendor "+String.format("0x%04X", pci.vendorID(i,j,k))+
                                     " and product "+String.format("0x%04X", pci.productID(i,j,k)));
+
+                                   /*
+                                    file.put("Bus",i);
+                                    file.put("Device", j);
+                                    file.put("Function",k);
+
+                                    */
+
                         }
                     }
                 }
