@@ -44,7 +44,7 @@ public class Display extends Thread {
 
     @Override
     public void run() {
-        int FPS_SET = 20;
+        int FPS_SET = 5;
         double timePerFrame = 1000000000.0 / FPS_SET;
         long lastFrame = System.nanoTime();
 
@@ -60,8 +60,14 @@ public class Display extends Thread {
 
             if (System.currentTimeMillis() - lastCheck >= 1000) {
                 lastCheck = System.currentTimeMillis();
-                System.out.println("FPS: " + frames);
                 frames = 0;
+            }
+
+            if (device.isUsbDeviceAdded()) {
+                JOptionPane.showMessageDialog(frame, "New USB Device Added");
+            }
+            if (device.isUsbDeviceRemoved()) {
+                JOptionPane.showMessageDialog(frame, "USB Device Removed");
             }
         }
     }
@@ -89,8 +95,8 @@ public class Display extends Thread {
                         ),
                 //CPU
                 String.format("<html>" +
-                            "<b>CPU</b>" +
-                            "%s" +
+                            "<b>CPU</b> <br>" +
+                            "%s <br>" +
                             "CPU Load: %.2f%% <br>" +
                             "Total CPU Cores: %d <br>" +
                             "L1 Instruction Cache: %d <br>" +
@@ -108,10 +114,10 @@ public class Display extends Thread {
                 ),
                 //Memory
                 String.format("<html>" +
-                        "Total Memory: %.2f" +
-                        "Memory Used: %.2f  -  %.2f%%" +
-                        "Memory Free: %.2f  -  %.2f%%" +
-                        "Memory Status: %s" +
+                        "Total Memory: %.2f <br>" +
+                        "Memory Used: %.2f  -  %.2f%% <br>" +
+                        "Memory Free: %.2f  -  %.2f%% <br>" +
+                        "Memory Status: %s <br>" +
                         "</html>",
                         device.memoryTotal,
                         device.getMemoryUsed(),

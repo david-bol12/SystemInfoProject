@@ -24,14 +24,21 @@ public class DeviceInfo extends Thread{
     private double memoryPercentFree;
     private String memoryStatus;
 
+    //USB
+    private int prevUSBDeviceCount;
+    private boolean usbDeviceRemoved = false;
+    private boolean usbDeviceAdded = false;
+
 
 
     cpuInfo cpu = new cpuInfo();
     memInfo memory = new memInfo();
+    usbInfo usb = new usbInfo();
 
     public DeviceInfo() {
         cpu.read(0);
         memory.read();
+        usb.read();
         cpuModel = cpu.getModel();
         l1iCacheSize = cpu.l1iCacheSize();
         l1dCacheSize = cpu.l1dCacheSize();
@@ -39,15 +46,20 @@ public class DeviceInfo extends Thread{
         l3CacheSize = cpu.l3CacheSize();
         coresPerSocket = cpu.coresPerSocket();
         socketCount = cpu.socketCount();
+
         memoryTotal = memoryUnit == storageUnit.GB ? memory.getTotalGB() : memory.getTotalGiB();
+
+        prevUSBDeviceCount = usb.getDevices().size();
     }
 
     @Override
     public void run() {
+
         while (true) {
             cpu.read(500);
             cpuLoad = cpu.getCpuLoad();
             memory.read();
+            usb.read();
             if (memoryUnit == storageUnit.GB) {
                 memoryUsed = memory.getUsedGB();
                 memoryFree = memory.getFreeGB();
@@ -58,6 +70,14 @@ public class DeviceInfo extends Thread{
             memoryPercentUsed = memory.getPercentUsed();
             memoryPercentFree = memory.getPercentFree();
             memoryStatus = memory.getMemoryStatus();
+            if (prevUSBDeviceCount > usb.getDevices().size()) {
+                usbDeviceRemoved = true;
+            } else if (prevUSBDeviceCount < usb.getDevices().size()) {
+                usbDeviceAdded = true;
+            } else {
+                usbDeviceAdded = false;
+                usbDeviceRemoved = false;
+            }
         }
     }
 
@@ -83,5 +103,13 @@ public class DeviceInfo extends Thread{
 
     public String getMemoryStatus() {
         return memoryStatus;
+    }
+
+    public boolean isUsbDeviceAdded() {
+        return usbDeviceAdded;
+    }
+
+    public boolean isUsbDeviceRemoved() {
+        return usbDeviceRemoved;
     }
 }
