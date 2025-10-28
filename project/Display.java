@@ -10,7 +10,7 @@ public class Display extends Thread {
     private Tab[] tabs;
     private String[] tabTitles = new String[] {
             "General",
-            "CPU",
+            "CPU"
     };
     private JLabel[] labels;
 
