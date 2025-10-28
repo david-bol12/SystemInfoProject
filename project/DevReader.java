@@ -77,5 +77,5 @@ return pairs;
     return devices;
     }
     
-}
+} // This shopuld be here
 
