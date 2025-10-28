@@ -125,10 +125,11 @@ class Body extends JPanel {
     private String text;
 
     public Body(String text) {
-        super(new GridLayout(1, 1, 10 ,10));
+        super(new BorderLayout());
         this.text = text;
         label = new JLabel(text);
         label.setFont(new Font("TimesRoman", Font.PLAIN, 12));
+        setBackground(Color.blue);
     }
 
     public void updateLabels(String updatedLine) {
