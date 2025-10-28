@@ -129,7 +129,7 @@ class Body extends JPanel {
         this.text = text;
         label = new JLabel(text);
         label.setFont(new Font("TimesRoman", Font.PLAIN, 12));
-        setBackground(Color.blue);
+        add(label, BorderLayout.NORTH);
     }
 
     public void updateLabels(String updatedLine) {
