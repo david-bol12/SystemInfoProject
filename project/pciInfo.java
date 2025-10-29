@@ -81,11 +81,12 @@ public class pciInfo {
                                     System.out.println("\n\n\n\n"+vendorMap);
                                     System.out.println(vendorMap.get("0x0808"));
 
-                                    /*
+
                                 String vendor = String.format("0x%04X", pci.vendorID(i, j, k));
                                 String product = String.format("0x%04X", pci.productID(i, j, k));
                                 System.out.println(vendor);
                                 System.out.println(product);
+                                /*
                                 HashMap<String, HashMap<String, HashMap<String, String>>> bigMap = gson.fromJson(reader, type);
                                 String vendorString = gson.toJson(bigMap.get(vendor), type2);
                                 HashMap<String, HashMap<String, String>> vendorMap = gson.fromJson(vendorString, type2);
