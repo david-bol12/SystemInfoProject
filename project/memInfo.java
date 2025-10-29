@@ -61,15 +61,15 @@ public class memInfo
         
         public String getMemoryStatus() {
             if (getPercentUsed() > 95.0) {
-                return "<p style=\"color:red;\"> Critical - Low Memory </p>";
+                return "<span style=\"color:red;\"> Critical - Low Memory </span>";
             } else if (getPercentUsed() > 80.0) {
-                return "<p style=\"color:orange;\"> Warning - High Memory Usage </p>";
+                return "<span style=\"color:orange;\"> Warning - High Memory Usage </span>";
             } else if (getPercentUsed() > 65.0) {
-                return "<p style=\"color:yellow;\"> Moderate Memory Usage </p>";
+                return "<span style=\"color:yellow;\"> Moderate Memory Usage </span>";
             } else if (getPercentUsed() > 50.0) {
-                return "<p style=\"color:lightgreen;\"> Normal Memory Usage </p>";
+                return "<span style=\"color:lightgreen;\"> Normal Memory Usage </span>";
             }  else {
-                return "<p style=\"color:green;\"> Healthy - Sufficient Memory </p>";
+                return "<span style=\"color:green;\"> Healthy - Sufficient Memory </span>";
             }
         }
 
