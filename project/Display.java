@@ -44,7 +44,7 @@ public class Display extends Thread {
 
     @Override
     public void run() {
-        int FPS_SET = 5;
+        int FPS_SET = 20;
         double timePerFrame = 1000000000.0 / FPS_SET;
         long lastFrame = System.nanoTime();
 

@@ -80,6 +80,7 @@ public class DeviceInfo extends Thread{
             memoryPercentUsed = memory.getPercentUsed();
             memoryPercentFree = memory.getPercentFree();
             memoryStatus = memory.getMemoryStatus();
+            System.out.println(usb.getDevices());
             if (prevUSBDeviceCount > usb.getDevices().size()) {
                 usbDeviceRemoved = true;
             } else if (prevUSBDeviceCount < usb.getDevices().size()) {
