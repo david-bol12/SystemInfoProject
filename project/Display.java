@@ -84,14 +84,13 @@ public class Display extends Thread {
                 //General
                 String.format("<html>" +
                             "CPU Load: %.2f%% <br>" +
-                            "Total CPU Cores: %d <br>" +
-                            "Used Memory: %.2f   -   %.2f%% <br>" +
-                            "" +
+                            "Used Memory: %.2f GiB   -   %.2f%% <br>" +
+                            "Total Remaining Disk Space: %.2f/%.2f GiB  -  %.2f%%" +
                             "</html>",
                         device.getCpuLoad(),
-                        device.socketCount,
                         device.getMemoryUsed(),
                         device.getMemoryPercentUsed()
+                        device.ge
                         ),
                 //CPU
                 String.format("<html>" +
@@ -114,9 +113,9 @@ public class Display extends Thread {
                 ),
                 //Memory
                 String.format("<html>" +
-                        "Total Memory: %.2f <br>" +
-                        "Memory Used: %.2f  -  %.2f%% <br>" +
-                        "Memory Free: %.2f  -  %.2f%% <br>" +
+                        "Total Memory: %.2f GiB <br>" +
+                        "Memory Used: %.2f GiB -  %.2f%% <br>" +
+                        "Memory Free: %.2f GiB -  %.2f%% <br>" +
                         "Memory Status: %s <br>" +
                         "</html>",
                         device.memoryTotal,

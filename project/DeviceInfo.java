@@ -29,6 +29,9 @@ public class DeviceInfo extends Thread{
     private boolean usbDeviceRemoved = false;
     private boolean usbDeviceAdded = false;
 
+    //Disk
+
+
 
 
     cpuInfo cpu = new cpuInfo();
