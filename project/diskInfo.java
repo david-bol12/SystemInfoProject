@@ -103,11 +103,7 @@ class Disk
     }
 
     public static double totalDiskUsedPercentage(Disk[] disks) {
-        double usedSpacePercentage = 0.0;
-        for (Disk disk : disks) {
-            usedSpacePercentage += disk.percentUsed;
-        }
-        return usedSpacePercentage;
+        return (totalDiskUsed(disks) / totalDiskSpace(disks)) * 100;
     }
 }
 

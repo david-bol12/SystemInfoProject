@@ -119,7 +119,7 @@ public class Display extends Thread {
                         "Total Memory: %.2f GiB <br>" +
                         "Memory Used: %.2f GiB -  %.2f%% <br>" +
                         "Memory Free: %.2f GiB -  %.2f%% <br>" +
-                        "Memory Status: %s <br>" +
+                        "<p style=\"color:green;\">Memory Status: %s </p><br>" +
                         "</html>",
                         device.memoryTotal,
                         device.getMemoryUsed(),
