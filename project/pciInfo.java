@@ -85,22 +85,9 @@ public class pciInfo
                             System.out.println("Bus "+i+" device "+j+" function "+k+
                                     " has vendor "+String.format("0x%04X", pci.vendorID(i,j,k))+
                                     " and product "+String.format("0x%04X", pci.productID(i,j,k)));
-/*
-                            busDeviceFunction.add(pci.vendorID(i,j,k));
-                            if (vendorIDs.containsKey(pci.vendorID(i,j,k))) {
-                                System.out.println(vendorIDs.get(pci.vendorID(i, j, k)) + " is the vendor for this bus");
-                            }
-                            else{
-                                System.out.println("Vendor is unknown");
-                            }
-                            busDeviceFunction.add(pci.productID(i,j,k));
-                            System.out.println(busDeviceFunction);
 
-
-
-                                    */
-
-
+                            System.out.println(pci.vendorID(i,j,k));
+                            System.out.println(pci.productID(i,j,k));
                         }
                     }
                 }
