@@ -14,3 +14,12 @@ $(HEADERS): %.h: %.java
 	javac -h . $<libsysinfo/libsysinfo.so:
 	$(MAKE) -C libsysinfo
 
+JAR_DIR := lib
+JFC_JAR := $(JAR_DIR)/gson-2.13.1.jar
+JAVA_SOURCES := $(wildcard *.java)
+
+compile_java:
+	javac -cp $(JFC_JAR):. $(JAVA_SOURCES)
+
+run: all
+	java -cp $(JFC_JAR):. -Djava.library.path=libsysinfo $(MYPROJECT)
