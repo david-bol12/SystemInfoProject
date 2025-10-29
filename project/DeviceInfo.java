@@ -88,6 +88,7 @@ public class DeviceInfo extends Thread{
                 usbDeviceAdded = false;
                 usbDeviceRemoved = false;
             }
+            prevUSBDeviceCount = usb.getDevices().size();
         }
     }
 
