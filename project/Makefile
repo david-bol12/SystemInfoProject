@@ -1,26 +1,24 @@
-.PHONY: libsysinfo/libsysinfo.so
+.PHONY: all run libsysinfo/libsysinfo.so
 
-MODULES=sysInfo cpuInfo pciInfo usbInfo diskInfo memInfo
-HEADERS=$(MODULES:=.h)
+MODULES = sysInfo cpuInfo pciInfo usbInfo diskInfo memInfo
+HEADERS = $(MODULES:=.h)
 
-MYPROJECT=Main
-
-all: $(HEADERS) $(MYPROJECT).class libsysinfo/libsysinfo.so
-all: $(HEADERS) libsysinfo/libsysinfo.so compile.java
-
-$(MYPROJECT).class: $(MYPROJECT).java libsysinfo/libsysinfo.so
-	javac $<
-
-$(HEADERS): %.h: %.java
-	javac -h . $<libsysinfo/libsysinfo.so:
-	$(MAKE) -C libsysinfo
+MYPROJECT = Main
 
 JAR_DIR := lib
-JFC_JAR := $(JAR_DIR)/gson-2.13.1.jar
+GSON_JAR := $(JAR_DIR)/gson-2.13.1.jar
 JAVA_SOURCES := $(wildcard *.java)
 
+all: $(HEADERS) libsysinfo/libsysinfo.so compile_java
+
+$(HEADERS): %.h: %.java
+	javac -cp $(GSON_JAR):. -h . $<
+
+libsysinfo/libsysinfo.so:
+	$(MAKE) -C libsysinfo
+
 compile_java:
-	javac -cp $(JFC_JAR):. $(JAVA_SOURCES)
+	javac -cp $(GSON_JAR):. $(JAVA_SOURCES)
 
 run: all
-	java -cp $(JFC_JAR):. -Djava.library.path=libsysinfo $(MYPROJECT)
+	java -cp $(GSON_JAR):. -Djava.library.path=libsysinfo $(MYPROJECT)
