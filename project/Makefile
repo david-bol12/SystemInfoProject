@@ -6,6 +6,7 @@ HEADERS=$(MODULES:=.h)
 MYPROJECT=Main
 
 all: $(HEADERS) $(MYPROJECT).class libsysinfo/libsysinfo.so
+all: $(HEADERS) libsysinfo/libsysinfo.so compile.java
 
 $(MYPROJECT).class: $(MYPROJECT).java libsysinfo/libsysinfo.so
 	javac $<
