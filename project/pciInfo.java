@@ -6,6 +6,12 @@
 //import org.json.simple.JSONObject;
 import java.util.HashMap;
 import java.util.ArrayList;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import java.io.FileReader;
+import java.io.IOException;
+import java.lang.reflect.Type;
+
 public class pciInfo 
 {
     // Refresh the current values and counters - call this before other methods
@@ -31,21 +37,25 @@ public class pciInfo
 
     public static void showPCI()
     {
-        HashMap<Integer, String> vendorIDs = new HashMap<>();
-        vendorIDs.put(1002,"AMD");
-        vendorIDs.put(8086,"Intel");
-        vendorIDs.put(6900,"RedHat");
-        vendorIDs.put(4318,"Nvidia");
-        vendorIDs.put(4332,"Realtek");
-        vendorIDs.put(6635,"Qualcomm");
-        vendorIDs.put(1044,"Dell");
-        vendorIDs.put(2605,"Matrox");
-        vendorIDs.put(58340,"Broadcom");
-        vendorIDs.put(4155,"Apple");
-        vendorIDs.put(7196,"Corsair");
+        Gson gson = new Gson();
+        Type type = new TypeToken<HashMap<String, HashMap<String, HashMap<String, String>>>>() {}.getType();
+        Type type2 = new TypeToken<HashMap<String, HashMap<String, String>>>() {}.getType();
 
-        HashMap<Integer, String> productIDs = new HashMap<>();
-        System.out.println(vendorIDs);
+        try(FileReader reader = new FileReader("pciDevices.json")) {
+            HashMap<String, HashMap<String, HashMap<String, String>>> bigMap = gson.fromJson(reader, type);
+
+            //System.out.println(map);
+            System.out.println(bigMap.get("0x046D"));
+            String vendorString = gson.toJson(bigMap.get("0x046D"), type2);
+            System.out.println(vendorString);
+            HashMap<String, HashMap<String, String>> vendorMap = gson.fromJson(vendorString, type2);
+            System.out.println("\n\n\n\n"+vendorMap);
+            System.out.println(vendorMap.get("0x0808"));
+
+        }
+        catch (IOException e) {
+            System.out.println("Uh oh");
+        }
 
 
 
@@ -75,7 +85,7 @@ public class pciInfo
                             System.out.println("Bus "+i+" device "+j+" function "+k+
                                     " has vendor "+String.format("0x%04X", pci.vendorID(i,j,k))+
                                     " and product "+String.format("0x%04X", pci.productID(i,j,k)));
-
+/*
                             busDeviceFunction.add(pci.vendorID(i,j,k));
                             if (vendorIDs.containsKey(pci.vendorID(i,j,k))) {
                                 System.out.println(vendorIDs.get(pci.vendorID(i, j, k)) + " is the vendor for this bus");
@@ -86,12 +96,10 @@ public class pciInfo
                             busDeviceFunction.add(pci.productID(i,j,k));
                             System.out.println(busDeviceFunction);
 
-                                   /*
-                                    file.put("Bus",i);
-                                    file.put("Device", j);
-                                    file.put("Function",k);
+
 
                                     */
+
 
                         }
                     }
