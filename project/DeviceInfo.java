@@ -30,7 +30,6 @@ public class DeviceInfo extends Thread{
     private boolean usbDeviceAdded = false;
 
     //Disk
-    private Disk[] disks = Disk.getDisks();
     private double totalDiskSpace;
     private double totalUsedDiskSpace;
     private double totalUsedDiskSpacePercentage;
@@ -38,9 +37,10 @@ public class DeviceInfo extends Thread{
 
 
 
-    cpuInfo cpu = new cpuInfo();
-    memInfo memory = new memInfo();
-    usbInfo usb = new usbInfo();
+    private cpuInfo cpu = new cpuInfo();
+    private memInfo memory = new memInfo();
+    private usbInfo usb = new usbInfo();
+    private Disk[] disks = Disk.getDisks();
 
     public DeviceInfo() {
         cpu.read(0);
@@ -134,5 +134,9 @@ public class DeviceInfo extends Thread{
 
     public double getTotalUsedDiskSpacePercentage() {
         return totalUsedDiskSpacePercentage;
+    }
+
+    public Disk[] getDisks() {
+        return disks;
     }
 }

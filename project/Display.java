@@ -12,6 +12,7 @@ public class Display extends Thread {
             "General",
             "CPU",
             "Memory",
+            "Disk",
     };
     private JLabel[] labels;
 
@@ -79,6 +80,29 @@ public class Display extends Thread {
         }
     }
 
+    public String getDisksInfo() {
+        String disksInfo = "<html>";
+        for (Disk disk : device.getDisks()) {
+            disksInfo += String.format(
+                    "<b>%s</b> <br>" +
+                    "Disk Type: %s <br>" +
+                    "Disk Size: %.2f GiB <br>" +
+                    "Used Space: %.2f GiB  -  %.2f%% <br>" +
+                    "Remaining Space: %.2f GiB  -  %.2f%% <br>" +
+                    "Disk Status: %s",
+                    disk.getName(),
+                    disk.getType(),
+                    disk.getTotalGiB(),
+                    disk.getUsedGiB(),
+                    disk.getPercentUsed(),
+                    disk.getFreeGiB(),
+                    disk.getPercentFree(),
+                    disk.getHealthStatus()
+            );
+        }
+        return disksInfo + "</html>";
+    }
+
     public String[] getLines() {
         return new String[] {
                 //General
@@ -127,7 +151,9 @@ public class Display extends Thread {
                         device.getMemoryFree(),
                         device.getMemoryPercentFree(),
                         device.getMemoryStatus()
-                        )
+                        ),
+                //Disk
+                getDisksInfo(),
         };
     }
 }

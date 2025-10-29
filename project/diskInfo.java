@@ -185,11 +185,11 @@ public class diskInfo
 
     public String healthStatus(int disk) {
         if (getPercentUsed(disk) > 95.0) {
-            return "Critical - Almost Full";
+            return "<span style=\"color:red;\"> Critical - Almost Full </span>";
         } else if (getPercentUsed(disk) > 80.0) {
-            return "Warning - Getting Full";
+            return "<span style=\"color:orange;\"> Warning - Getting Full </span>";
         } else {
-            return "Healthy - Sufficient Space";
+            return "<span style=\"color:green;\"> Healthy - Sufficient Space </span>";
         }
     }
 
