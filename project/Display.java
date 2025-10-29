@@ -162,18 +162,20 @@ class Tab {
 
     private String title;
     private Body body;
+    private JScrollPane scrollPane;
 
     public Tab(String title, Body body) {
         this.title = title;
         this.body = body;
+        this.scrollPane = new JScrollPane(body);
     }
 
     public void updateLabels(String text) {
         body.updateLabels(text);
     }
 
-    public Body getBody() {
-        return body;
+    public JComponent getBody() {
+        return scrollPane;
     }
 
     public String getTitle() {
