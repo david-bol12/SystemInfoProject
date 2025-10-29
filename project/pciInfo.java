@@ -72,32 +72,22 @@ public class pciInfo {
                                         " and product " + String.format("0x%04X", pci.productID(i, j, k)));
 
                                 try (FileReader reader = new FileReader("pciDevices.json")) {
-                                    /*
+                                    String vendor = String.format("0x%04X", pci.vendorID(i, j, k));
+                                    String product = String.format("0x%04X", pci.productID(i, j, k));
+                                    System.out.println(vendor);
+                                    System.out.println(product);
+
                                     HashMap<String, HashMap<String, HashMap<String, String>>> bigMap = gson.fromJson(reader, type);
-                                    System.out.println(bigMap.get("0x1AF4"));
-                                    String vendorString = gson.toJson(bigMap.get("0x1AF4"), type2);
-                                    System.out.println(vendorString);
-                                    HashMap<String, HashMap<String, String>> vendorMap = gson.fromJson(vendorString, type2);
-                                    System.out.println("\n\n\n\n"+vendorMap);
-                                    System.out.println(vendorMap.get("0x105A"));
-                                    */
-
-                                String vendor = String.format("0x%04X", pci.vendorID(i, j, k));
-                                String product = String.format("0x%04X", pci.productID(i, j, k));
-                                System.out.println(vendor);
-                                System.out.println(product);
-
-                                HashMap<String, HashMap<String, HashMap<String, String>>> bigMap = gson.fromJson(reader, type);
-                                if (bigMap.containsKey(vendor)){
-                                    String vendorString = gson.toJson(bigMap.get(vendor), type2);
-                                    HashMap<String, HashMap<String, String>> vendorMap = gson.fromJson(vendorString, type2);
-                                    if (vendorMap.containsKey(product)) {
-                                        System.out.println(vendorMap.get(product));
+                                    if (bigMap.containsKey(vendor)){
+                                        String vendorString = gson.toJson(bigMap.get(vendor), type2);
+                                        HashMap<String, HashMap<String, String>> vendorMap = gson.fromJson(vendorString, type2);
+                                        if (vendorMap.containsKey(product)) {
+                                            System.out.println(vendorMap.get(product));
+                                        }
                                     }
-                                }
-                                else{
-                                    System.out.println("Unknown Vendor and/or Product");
-                                }
+                                    else{
+                                        System.out.println("Unknown Vendor and/or Product");
+                                    }
                                 } catch (IOException e) {
                                     System.out.println("Uh oh");
                                 }
