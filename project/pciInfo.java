@@ -45,11 +45,11 @@ public class pciInfo
             HashMap<String, HashMap<String, HashMap<String, String>>> bigMap = gson.fromJson(reader, type);
 
             //System.out.println(map);
-            System.out.println(bigMap.get("0x046D"));
+            //System.out.println(bigMap.get("0x046D"));
             String vendorString = gson.toJson(bigMap.get("0x046D"), type2);
-            System.out.println(vendorString);
+            //System.out.println(vendorString);
             HashMap<String, HashMap<String, String>> vendorMap = gson.fromJson(vendorString, type2);
-            System.out.println("\n\n\n\n"+vendorMap);
+            //System.out.println("\n\n\n\n"+vendorMap);
             System.out.println(vendorMap.get("0x0808"));
 
         }
