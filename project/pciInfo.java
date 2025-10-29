@@ -5,7 +5,7 @@
  */
 //import org.json.simple.JSONObject;
 import java.util.HashMap;
-import java.util.ArrayList;
+//import java.util.ArrayList;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.io.FileReader;
@@ -41,21 +41,12 @@ public class pciInfo {
         Type type2 = new TypeToken<HashMap<String, HashMap<String, String>>>() {
         }.getType();
 
-        try (FileReader reader = new FileReader("pciDevices.json")) {
-            HashMap<String, HashMap<String, HashMap<String, String>>> bigMap = gson.fromJson(reader, type);
 
-            //System.out.println(map);
-            //System.out.println(bigMap.get("0x046D"));
-           // String vendorString = gson.toJson(bigMap.get("0x046D"), type2);
-            //System.out.println(vendorString);
-            //HashMap<String, HashMap<String, String>> vendorMap = gson.fromJson(vendorString, type2);
-            //System.out.println("\n\n\n\n"+vendorMap);
-            //System.out.println(vendorMap.get("0x0808"));
 
 
             pciInfo pci = new pciInfo();
             //JSONObject file = new JSONObject();
-            ArrayList<Integer> busDeviceFunction = new ArrayList<>();
+           // ArrayList<Integer> busDeviceFunction = new ArrayList<>();
             pci.read();
 
             System.out.println("\nThis machine has " +
@@ -80,23 +71,33 @@ public class pciInfo {
                                         " has vendor " + String.format("0x%04X", pci.vendorID(i, j, k)) +
                                         " and product " + String.format("0x%04X", pci.productID(i, j, k)));
 
+                                try (FileReader reader = new FileReader("pciDevices.json")) {
+                                    //HashMap<String, HashMap<String, HashMap<String, String>>> bigMap = gson.fromJson(reader, type);
+
+                                    //System.out.println(map);
+                                    //System.out.println(bigMap.get("0x046D"));
+                                    // String vendorString = gson.toJson(bigMap.get("0x046D"), type2);
+                                    //System.out.println(vendorString);
+                                    //HashMap<String, HashMap<String, String>> vendorMap = gson.fromJson(vendorString, type2);
+                                    //System.out.println("\n\n\n\n"+vendorMap);
+                                    //System.out.println(vendorMap.get("0x0808"));
 
                                 String vendor = String.format("0x%04X", pci.vendorID(i, j, k));
                                 String product = String.format("0x%04X", pci.vendorID(i, j, k));
                                 System.out.println(vendor);
                                 System.out.println(product);
+                                HashMap<String, HashMap<String, HashMap<String, String>>> bigMap = gson.fromJson(reader, type);
                                 String vendorString = gson.toJson(bigMap.get(vendor), type2);
                                 HashMap<String, HashMap<String, String>> vendorMap = gson.fromJson(vendorString, type2);
                                 System.out.println(vendorMap.get(product));
-
+                                } catch (IOException e) {
+                                    System.out.println("Uh oh");
+                                }
 
                             }
                         }
                     }
                 }
             }
-        } catch (IOException e) {
-            System.out.println("Uh oh");
-        }
     }
 }
