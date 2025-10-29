@@ -11,8 +11,6 @@ $(MYPROJECT).class: $(MYPROJECT).java libsysinfo/libsysinfo.so
 	javac $<
 
 $(HEADERS): %.h: %.java
-	javac -h . $<
-
-libsysinfo/libsysinfo.so:
+	javac -h . $<libsysinfo/libsysinfo.so:
 	$(MAKE) -C libsysinfo
 
