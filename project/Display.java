@@ -89,7 +89,7 @@ public class Display extends Thread {
                     "Disk Size: %.2f GiB <br>" +
                     "Used Space: %.2f GiB  -  %.2f%% <br>" +
                     "Remaining Space: %.2f GiB  -  %.2f%% <br>" +
-                    "Disk Status: %s",
+                    "Disk Status: %s <br> <br>",
                     disk.getName(),
                     disk.getType(),
                     disk.getTotalGiB(),
