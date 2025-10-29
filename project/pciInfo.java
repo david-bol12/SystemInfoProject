@@ -34,7 +34,7 @@ public class pciInfo
         HashMap<Integer, String> vendorIDs = new HashMap<>();
         vendorIDs.put(1002,"AMD");
         vendorIDs.put(8086,"Intel");
-      //  vendorIDs.put(6900,"RedHat");
+        vendorIDs.put(6900,"RedHat");
         vendorIDs.put(4318,"Nvidia");
         vendorIDs.put(4332,"Realtek");
         vendorIDs.put(6635,"Qualcomm");
@@ -45,7 +45,7 @@ public class pciInfo
         vendorIDs.put(7196,"Corsair");
 
         HashMap<Integer, String> productIDs = new HashMap<>();
-
+        System.out.println(vendorIDs);
 
 
 
