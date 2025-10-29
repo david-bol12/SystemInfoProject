@@ -86,8 +86,11 @@ public class pciInfo
                                     " has vendor "+String.format("0x%04X", pci.vendorID(i,j,k))+
                                     " and product "+String.format("0x%04X", pci.productID(i,j,k)));
 
-                            System.out.println(pci.vendorID(i,j,k));
-                            System.out.println(pci.productID(i,j,k));
+
+                            String vendor = String.format("0x%04X", pci.vendorID(i,j,k));
+                            String product = String.format("0x%04X", pci.vendorID(i,j,k));
+                            System.out.println(vendor);
+                            System.out.println(product);
                         }
                     }
                 }
