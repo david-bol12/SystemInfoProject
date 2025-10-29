@@ -83,14 +83,17 @@ public class Display extends Thread {
         return new String[] {
                 //General
                 String.format("<html>" +
+                                "<b>General</b> <br>" +
                             "CPU Load: %.2f%% <br>" +
                             "Used Memory: %.2f GiB   -   %.2f%% <br>" +
-                            "Total Remaining Disk Space: %.2f/%.2f GiB  -  %.2f%%" +
+                            "Total Remaining Disk Space: %.2f/%.2f GiB  -  %.2f%% <br>" +
                             "</html>",
                         device.getCpuLoad(),
                         device.getMemoryUsed(),
-                        device.getMemoryPercentUsed()
-                        device.ge
+                        device.getMemoryPercentUsed(),
+                        device.getTotalUsedDiskSpace(),
+                        device.getTotalDiskSpace(),
+                        device.getTotalUsedDiskSpacePercentage()
                         ),
                 //CPU
                 String.format("<html>" +

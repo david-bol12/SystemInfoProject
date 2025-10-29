@@ -30,6 +30,10 @@ public class DeviceInfo extends Thread{
     private boolean usbDeviceAdded = false;
 
     //Disk
+    private Disk[] disks = Disk.getDisks();
+    private double totalDiskSpace;
+    private double totalUsedDiskSpace;
+    private double totalUsedDiskSpacePercentage;
 
 
 
@@ -53,6 +57,9 @@ public class DeviceInfo extends Thread{
         memoryTotal = memoryUnit == storageUnit.GB ? memory.getTotalGB() : memory.getTotalGiB();
 
         prevUSBDeviceCount = usb.getDevices().size();
+        totalDiskSpace = Disk.totalDiskSpace(disks);
+        totalUsedDiskSpace = Disk.totalDiskUsed(disks);
+        totalUsedDiskSpacePercentage = Disk.totalDiskUsedPercentage(disks);
     }
 
     @Override
@@ -114,5 +121,17 @@ public class DeviceInfo extends Thread{
 
     public boolean isUsbDeviceRemoved() {
         return usbDeviceRemoved;
+    }
+
+    public double getTotalDiskSpace() {
+        return totalDiskSpace;
+    }
+
+    public double getTotalUsedDiskSpace() {
+        return totalUsedDiskSpace;
+    }
+
+    public double getTotalUsedDiskSpacePercentage() {
+        return totalUsedDiskSpacePercentage;
     }
 }
