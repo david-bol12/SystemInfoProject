@@ -13,7 +13,8 @@ public class Main
         System.out.println("System Info Project");
         System.loadLibrary("sysinfo");// Loads C++ Library
         pciInfo pci = new pciInfo();
-        pci.productID(1, 1, 1);
+        PciDevice pciDevice = new PciDevice(pci.vendorID(1, 1, 1), pci.productID(1,1,1) );
+        System.out.println(pciDevice.getProductName() + " " + pciDevice.getVendorName());
     }
 }
 
