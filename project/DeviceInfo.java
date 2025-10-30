@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class DeviceInfo extends Thread{
 
     enum storageUnit {
@@ -35,18 +37,22 @@ public class DeviceInfo extends Thread{
     private double totalUsedDiskSpacePercentage;
 
     //PCI
+    private ArrayList<PciDevice> pciDevices = new ArrayList<PciDevice>();
 
 
 
     private cpuInfo cpu = new cpuInfo();
     private memInfo memory = new memInfo();
     private usbInfo usb = new usbInfo();
+    private pciInfo pci = new pciInfo();
     private Disk[] disks = Disk.getDisks();
 
     public DeviceInfo() {
         cpu.read(0);
         memory.read();
         usb.read();
+        pci.read();
+        pciDevices = pci.getPciDevices();
         cpuModel = cpu.getModel();
         l1iCacheSize = cpu.l1iCacheSize();
         l1dCacheSize = cpu.l1dCacheSize();
@@ -71,7 +77,6 @@ public class DeviceInfo extends Thread{
             cpuLoad = cpu.getCpuLoad();
             memory.read();
             usb.read();
-            System.out.println(usb.getDevices());
             if (memoryUnit == storageUnit.GB) {
                 memoryUsed = memory.getUsedGB();
                 memoryFree = memory.getFreeGB();
@@ -140,5 +145,9 @@ public class DeviceInfo extends Thread{
 
     public Disk[] getDisks() {
         return disks;
+    }
+
+    public ArrayList<PciDevice> getPciDevices() {
+        return pciDevices;
     }
 }

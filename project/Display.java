@@ -103,6 +103,19 @@ public class Display extends Thread {
         return disksInfo + "</html>";
     }
 
+    public String getPciDeviceInfo() {
+        String devicesInfo = "<html>" +
+                "<b> PCI Devices <b> <br>";
+        for (PciDevice pciDevice : device.getPciDevices()) {
+            devicesInfo += String.format(
+                    "%s   -   %s <br>",
+                    pciDevice.getProductName(),
+                    pciDevice.getVendorName()
+            );
+        }
+        return devicesInfo + "</html>";
+    }
+
     public String[] getLines() {
         return new String[] {
                 //General
