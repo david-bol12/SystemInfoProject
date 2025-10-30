@@ -4,8 +4,9 @@
  *  Copyright (c) 2024 Mark Burkley (mark.burkley@ul.ie)
  */
 
-public class cpuInfo 
+public class cpuInfo
 {
+
     // Refresh the current values and counters - call this before other methods
     public native void read (int seconds);
     public native void read ();
@@ -43,25 +44,17 @@ public class cpuInfo
     // that the specified core has been in system mode
     public native int getSystemTime (int core);
 
-    public static void showCPU()
-    {
-        cpuInfo cpu = new cpuInfo();
-        cpu.read(0);
-
-        // Show CPU model, CPU sockets and cores per socket
-        System.out.println("CPU " + cpu.getModel() + " has "+
-                cpu.socketCount() + " sockets each with "+
-                cpu.coresPerSocket() + " cores");
-
-        // Show sizes of L1,L2 and L3 cache
-        System.out.println("l1d="+cpu.l1dCacheSize()+
-                ", l1i="+cpu.l1iCacheSize()+
-                ", l2="+cpu.l2CacheSize()+
-                ", l3="+cpu.l3CacheSize());
-
-        // Sleep for 1 second and display the idle time percentage for
-        // core 1.  This assumes 10Hz so in one second we have 100
-        cpu.read(1);
-        System.out.println("core 1 idle="+cpu.getIdleTime(1)+"%");
+    public double getCpuLoad () {
+        int idleTime = 0;
+        int busyTime = 0;
+        for (int i = 0; i < coresPerSocket(); i++) {
+            idleTime += getIdleTime(i);
+            busyTime += (getUserTime(i) + getSystemTime(i));
+            // User time = Time spent executing user level code
+            // System time = Time spent executing kernel level code
+        }
+        double cpuLoad = (double) busyTime / (idleTime + busyTime);
+        return cpuLoad * 100;
     }
+
 }
