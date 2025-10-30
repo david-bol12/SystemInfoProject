@@ -14,11 +14,11 @@ public class Main
         System.loadLibrary("sysinfo");// Loads C++ Library
         pciInfo pci = new pciInfo();
         for (int bus = 0; bus <= pci.busCount(); bus++) {
-            System.out.println(bus);
+            System.out.println(pci.busCount());
             for (int device = 0; device <= pci.deviceCount(bus); device++) {
-                System.out.println(device);
+                System.out.println(pci.deviceCount(bus));
                 for(int func = 0; func <= pci.functionCount(bus, device); func++) {
-                    System.out.println(func);
+                    System.out.println(pci.functionCount(bus, device));
                     PciDevice pciDevice = new PciDevice(pci.vendorID(bus, device, func), pci.productID(bus, device, func));
                     System.out.println(pciDevice.getProductName() + " " + pciDevice.getVendorName());
                 }
