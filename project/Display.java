@@ -84,7 +84,7 @@ public class Display extends Thread {
 
     public String getDisksInfo() {
         String disksInfo = "<html>" +
-                "<b>Disks: </b> <br><br>";
+                "<br> <b>Disk </b> <br><br>";
         for (Disk disk : device.getDisks()) {
             disksInfo += String.format(
                     "<b>%s</b> <br>" +
@@ -108,7 +108,7 @@ public class Display extends Thread {
 
     public String getPciDeviceInfo() {
         String devicesInfo = "<html>" +
-                "<b> PCI Devices </b> <br> <br>";
+                "<br> <b> PCI Devices </b> <br> <br>";
         for (PciDevice pciDevice : device.getPciDevices()) {
             devicesInfo += String.format(
                     "%s   -   %s <br>",
@@ -121,7 +121,7 @@ public class Display extends Thread {
 
     public String getUsbDeviceInfo() {
         String devicesInfo = "<html>" +
-                "<b> USB Devices </b> <br> <br>";
+                "<br> <b> USB Devices </b> <br> <br>";
         for (String usbDevice : device.getUsbDevices()) {
             devicesInfo += String.format(
                     "%s <br>",
