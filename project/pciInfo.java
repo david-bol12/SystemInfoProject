@@ -80,7 +80,7 @@ public class pciInfo {
                                         String vendorString = gson.toJson(bigMap.get(vendor), type2);
                                         HashMap<String, HashMap<String, String>> vendorMap = gson.fromJson(vendorString, type2);
                                         if (vendorMap.containsKey(product)) {
-                                            System.out.println(vendorMap.get(product));
+                                            System.out.println(vendorMap.get(product).get("Device Name"));
                                         }
                                     }
                                     else{
