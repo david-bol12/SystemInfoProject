@@ -135,39 +135,44 @@ public class Display extends Thread {
         return new String[] {
                 //General
                 String.format("<html>" +
-                                "<b>General</b> <br> <br>" +
+                                "<br><b>General</b> <br> <br>" +
                             "CPU Load: %.2f%% <br>" +
                             "Used Memory: %.2f GiB   -   %.2f%% <br>" +
                             "Total Remaining Disk Space: %.2f/%.2f GiB  -  %.2f%% <br>" +
+                                "Total PCI Devices: %d <br>" +
+                                "Total USB Devices: %d <br>" +
                             "</html>",
                         device.getCpuLoad(),
                         device.getMemoryUsed(),
                         device.getMemoryPercentUsed(),
                         device.getTotalUsedDiskSpace(),
                         device.getTotalDiskSpace(),
-                        device.getTotalUsedDiskSpacePercentage()
+                        device.getTotalUsedDiskSpacePercentage(),
+                        device.getPciDevices().size(),
+                        device.getUsbDevices().size()
                         ),
                 //CPU
                 String.format("<html>" +
-                            "<b>CPU</b> <br> <br>" +
+                            "<br><b>CPU</b> <br> <br>" +
                             "%s <br>" +
                             "CPU Load: %.2f%% <br>" +
                             "Total CPU Cores: %d <br>" +
-                            "L1 Instruction Cache: %d <br>" +
-                            "L1 Data Cache: %d <br>" +
-                            "L2 Cache: %d <br>" +
-                            "L3 Cache: %d <br>" +
+                            "L1 Instruction Cache: %d KiB<br>" +
+                            "L1 Data Cache: %d KiB<br>" +
+                            "L2 Cache: %d MiB<br>" +
+                            "L3 Cache: %d MiB<br>" +
                                 "</html>",
                         device.cpuModel,
                         device.getCpuLoad(),
                         device.socketCount,
-                        device.l1dCacheSize,
-                        device.l1iCacheSize,
-                        device.l2CacheSize,
-                        device.l3CacheSize
+                        (device.l1dCacheSize / 1024),
+                        (device.l1iCacheSize / 1024),
+                        (device.l2CacheSize / (1024 * 1024)),
+                        (device.l3CacheSize / (1024 * 1024))
                 ),
                 //Memory
                 String.format("<html>" +
+                                "<br><b> Memory </b><br> <br>" +
                         "Total Memory: %.2f GiB <br>" +
                         "Memory Used: %.2f GiB -  %.2f%% <br>" +
                         "Memory Free: %.2f GiB -  %.2f%% <br>" +
