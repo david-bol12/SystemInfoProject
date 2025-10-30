@@ -34,6 +34,7 @@ public class DeviceInfo extends Thread{
     private double totalUsedDiskSpace;
     private double totalUsedDiskSpacePercentage;
 
+    //PCI
 
 
 
