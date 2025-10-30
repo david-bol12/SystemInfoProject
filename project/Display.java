@@ -13,6 +13,7 @@ public class Display extends Thread {
             "CPU",
             "Memory",
             "Disk",
+            "PCI"
     };
     private JLabel[] labels;
 
@@ -167,6 +168,8 @@ public class Display extends Thread {
                         ),
                 //Disk
                 getDisksInfo(),
+                //
+                getPciDeviceInfo(),
         };
     }
 }
