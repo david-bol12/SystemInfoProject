@@ -70,6 +70,7 @@ public class DeviceInfo extends Thread{
             cpuLoad = cpu.getCpuLoad();
             memory.read();
             usb.read();
+            System.out.println(usb.getDevices());
             if (memoryUnit == storageUnit.GB) {
                 memoryUsed = memory.getUsedGB();
                 memoryFree = memory.getFreeGB();
