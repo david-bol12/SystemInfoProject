@@ -45,8 +45,6 @@ public class pciInfo {
 
 
             pciInfo pci = new pciInfo();
-            //JSONObject file = new JSONObject();
-           // ArrayList<Integer> busDeviceFunction = new ArrayList<>();
             pci.read();
 
             System.out.println("\nThis machine has " +
@@ -74,8 +72,8 @@ public class pciInfo {
                                 try (FileReader reader = new FileReader("pciDevices.json")) {
                                     String vendor = String.format("0x%04X", pci.vendorID(i, j, k));
                                     String product = String.format("0x%04X", pci.productID(i, j, k));
-                                    System.out.println(vendor);
-                                    System.out.println(product);
+                                    //System.out.println(vendor);
+                                    //System.out.println(product);
 
                                     HashMap<String, HashMap<String, HashMap<String, String>>> bigMap = gson.fromJson(reader, type);
                                     if (bigMap.containsKey(vendor)){
