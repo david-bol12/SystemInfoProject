@@ -34,65 +34,46 @@ public class pciInfo {
     // Return the product ID of a PCI device
     public native int productID(int bus, int device, int function);
 
-    public static void showPCI() {
-        Gson gson = new Gson();
-        Type type = new TypeToken<HashMap<String, HashMap<String, HashMap<String, String>>>>() {
-        }.getType();
-        Type type2 = new TypeToken<HashMap<String, HashMap<String, String>>>() {
-        }.getType();
+    class PciDevice {
 
+        private String vendorName;
+        private String productName;
 
+        public PciDevice (int vendorID, int productID) {
+            try (FileReader reader = new FileReader("pciDevices.json")) {
+                String vendor = String.format("0x%04X", vendorID);
+                String product = String.format("0x%04X", productID);
 
-
-            pciInfo pci = new pciInfo();
-            pci.read();
-
-            System.out.println("\nThis machine has " +
-                    pci.busCount() + " PCI buses ");
-
-            // Iterate through each bus
-            for (int i = 0; i < pci.busCount(); i++) {
-                System.out.println("Bus " + i + " has " +
-                        pci.deviceCount(i) + " devices");
-
-                // Iterate for up to 32 devices.  Not every device slot may be populated
-                // so ensure at least one function before printing device information
-                for (int j = 0; j < 32; j++) {
-                    if (pci.functionCount(i, j) > 0) {
-                        System.out.println("Bus " + i + " device " + j + " has " +
-                                pci.functionCount(i, j) + " functions");
-
-                        // Iterate through up to 8 functions per device.
-                        for (int k = 0; k < 8; k++) {
-                            if (pci.functionPresent(i, j, k) > 0) {
-                                System.out.println("Bus " + i + " device " + j + " function " + k +
-                                        " has vendor " + String.format("0x%04X", pci.vendorID(i, j, k)) +
-                                        " and product " + String.format("0x%04X", pci.productID(i, j, k)));
-
-                                try (FileReader reader = new FileReader("pciDevices.json")) {
-                                    String vendor = String.format("0x%04X", pci.vendorID(i, j, k));
-                                    String product = String.format("0x%04X", pci.productID(i, j, k));
-                                    //System.out.println(vendor);
-                                    //System.out.println(product);
-
-                                    HashMap<String, HashMap<String, HashMap<String, String>>> bigMap = gson.fromJson(reader, type);
-                                    if (bigMap.containsKey(vendor)){
-                                        String vendorString = gson.toJson(bigMap.get(vendor), type2);
-                                        HashMap<String, HashMap<String, String>> vendorMap = gson.fromJson(vendorString, type2);
-                                        if (vendorMap.containsKey(product)) {
-                                            System.out.println(vendorMap.get(product).get("Device Name"));
-                                        }
-                                    }
-                                    else{
-                                        System.out.println("Unknown Vendor and/or Product");
-                                    }
-                                } catch (IOException e) {
-                                    System.out.println("Uh oh");
-                                }
-                            }
-                        }
+                Gson gson = new Gson();
+                Type type = new TypeToken<HashMap<String, HashMap<String, HashMap<String, String>>>>() {
+                }.getType();
+                HashMap<String, HashMap<String, HashMap<String, String>>> bigMap = gson.fromJson(reader, type);
+                if (bigMap.containsKey(vendor)){
+                    Type type2 = new TypeToken<HashMap<String, HashMap<String, String>>>() {
+                    }.getType();
+                    String vendorString = gson.toJson(bigMap.get(vendor), type2);
+                    HashMap<String, HashMap<String, String>> vendorMap = gson.fromJson(vendorString, type2);
+                    if (vendorMap.containsKey(product)) {
+                        vendorName = vendorMap.get(product).get("Vendor Name");
+                        productName = vendorMap.get(product).get("Device Name");
                     }
                 }
+                else{
+                    vendorName = "Unknown Vendor";
+                    productName = "Unknown Product";
+                }
+            } catch (IOException e) {
+                vendorName = "Failed to Vendor Name";
+                productName = "Failed to Vendor Name";
             }
+        }
+
+        public String getProductName() {
+            return productName;
+        }
+
+        public String getVendorName() {
+            return vendorName;
+        }
     }
 }
