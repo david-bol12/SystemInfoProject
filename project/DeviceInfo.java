@@ -30,6 +30,7 @@ public class DeviceInfo extends Thread{
     private int prevUSBDeviceCount;
     private boolean usbDeviceRemoved = false;
     private boolean usbDeviceAdded = false;
+    private ArrayList<String> usbDevices;
 
     //Disk
     private double totalDiskSpace;
@@ -67,6 +68,8 @@ public class DeviceInfo extends Thread{
         totalDiskSpace = Disk.totalDiskSpace(disks);
         totalUsedDiskSpace = Disk.totalDiskUsed(disks);
         totalUsedDiskSpacePercentage = Disk.totalDiskUsedPercentage(disks);
+
+        usbDevices = usb.getDevices();
     }
 
     @Override
@@ -96,6 +99,8 @@ public class DeviceInfo extends Thread{
                 usbDeviceRemoved = false;
             }
             prevUSBDeviceCount = usb.getDevices().size();
+            usbDevices = usb.getDevices();
+
         }
     }
 
@@ -149,5 +154,9 @@ public class DeviceInfo extends Thread{
 
     public ArrayList<PciDevice> getPciDevices() {
         return pciDevices;
+    }
+
+    public ArrayList<String> getUsbDevices() {
+        return usbDevices;
     }
 }

@@ -54,7 +54,7 @@ return pairs;
                         " and product " + String.format("0x%04X", product)); */
 }
 
-public ArrayList getDevices() {
+public ArrayList<String> getDevices() {
         Set<Map.Entry<Integer, Integer>> pairs = getVendorIDs();
         ArrayList <String> devices = new ArrayList<String>();
             for(int i = 1; i <= busCount(); i++) {

@@ -13,7 +13,8 @@ public class Display extends Thread {
             "CPU",
             "Memory",
             "Disk",
-            "PCI"
+            "PCI",
+            "USB"
     };
     private JLabel[] labels;
 
@@ -82,7 +83,8 @@ public class Display extends Thread {
     }
 
     public String getDisksInfo() {
-        String disksInfo = "<html>";
+        String disksInfo = "<html>" +
+                "<b>Disks: </b> <br><br>";
         for (Disk disk : device.getDisks()) {
             disksInfo += String.format(
                     "<b>%s</b> <br>" +
@@ -106,7 +108,7 @@ public class Display extends Thread {
 
     public String getPciDeviceInfo() {
         String devicesInfo = "<html>" +
-                "<b> PCI Devices </b> <br>";
+                "<b> PCI Devices </b> <br> <br>";
         for (PciDevice pciDevice : device.getPciDevices()) {
             devicesInfo += String.format(
                     "%s   -   %s <br>",
@@ -117,11 +119,23 @@ public class Display extends Thread {
         return devicesInfo + "</html>";
     }
 
+    public String getUsbDeviceInfo() {
+        String devicesInfo = "<html>" +
+                "<b> USB Devices </b> <br> <br>";
+        for (String usbDevice : device.getUsbDevices()) {
+            devicesInfo += String.format(
+                    "%s <br>",
+                    usbDevice
+            );
+        }
+        return devicesInfo + "</html>";
+    }
+
     public String[] getLines() {
         return new String[] {
                 //General
                 String.format("<html>" +
-                                "<b>General</b> <br>" +
+                                "<b>General</b> <br> <br>" +
                             "CPU Load: %.2f%% <br>" +
                             "Used Memory: %.2f GiB   -   %.2f%% <br>" +
                             "Total Remaining Disk Space: %.2f/%.2f GiB  -  %.2f%% <br>" +
@@ -135,7 +149,7 @@ public class Display extends Thread {
                         ),
                 //CPU
                 String.format("<html>" +
-                            "<b>CPU</b> <br>" +
+                            "<b>CPU</b> <br> <br>" +
                             "%s <br>" +
                             "CPU Load: %.2f%% <br>" +
                             "Total CPU Cores: %d <br>" +
@@ -168,8 +182,10 @@ public class Display extends Thread {
                         ),
                 //Disk
                 getDisksInfo(),
-                //
+                //PCI
                 getPciDeviceInfo(),
+                //USB
+                getUsbDeviceInfo(),
         };
     }
 }
