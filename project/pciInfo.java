@@ -11,6 +11,7 @@ import com.google.gson.reflect.TypeToken;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 public class pciInfo {
     // Refresh the current values and counters - call this before other methods
@@ -33,6 +34,28 @@ public class pciInfo {
 
     // Return the product ID of a PCI device
     public native int productID(int bus, int device, int function);
+
+    public ArrayList<PciDevice> getPciDevices() {
+
+        ArrayList<PciDevice> pciDevices = new ArrayList<PciDevice>();
+
+        for (int bus = 0; bus < busCount(); bus++) {
+            // Iterate for up to 32 devices.  Not every device slot may be populated
+            // so ensure at least one function before printing device information
+            for (int device = 0; device < 32; device++) {
+                if (functionCount(bus, device) > 0) {
+
+                    // Iterate through up to 8 functions per device.
+                    for (int func = 0; func < 8; func++) {
+                        if (functionPresent(bus, device, func) > 0) {
+                            pciDevices.add(new PciDevice(vendorID(bus, device, func), productID(bus, device, func)));
+                        }
+                    }
+                }
+            }
+        }
+        return pciDevices;
+    }
 
 
 }
