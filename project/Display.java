@@ -21,7 +21,7 @@ public class Display extends Thread {
         this.device = device;
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(600, 450);
+        frame.setSize(800, 450);
         frame.setLocationRelativeTo(null); // Center the window on screen
 
         // Layout setup
@@ -106,7 +106,7 @@ public class Display extends Thread {
 
     public String getPciDeviceInfo() {
         String devicesInfo = "<html>" +
-                "<b> PCI Devices <b> <br>";
+                "<b> PCI Devices </b> <br>";
         for (PciDevice pciDevice : device.getPciDevices()) {
             devicesInfo += String.format(
                     "%s   -   %s <br>",
