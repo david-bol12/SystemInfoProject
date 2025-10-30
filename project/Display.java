@@ -14,7 +14,7 @@ public class Display extends Thread {
             "Memory",
             "Disk",
             "PCI",
-            "USB"
+            "USB" //
     };
     private JLabel[] labels;
 
